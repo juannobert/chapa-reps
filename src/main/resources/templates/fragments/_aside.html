@@ -1,0 +1,84 @@
+<!-- Main Sidebar Container -->
+<aside th:fragment="aside" class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a href="" class="brand-link">
+    <img src="https://placekitten.com/200/200" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+    <span class="brand-text font-weight-light">App Name</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <div class="img-circle elevation-2"><i class="fas fa-online"></i></div>
+      </div>
+      <div class="info">
+        <a class="d-block" sec:authentication="name">user@mail.com</a>
+      </div>
+    </div>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a class="nav-link">
+            <i class="nav-icon fas fa-broom"></i>
+            <p>
+              Serviços
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+
+              <a class="nav-link"  th:href="@{/admin/servicos/cadastrar}">
+
+                <i class="nav-icon fas fa-edit nav-icon"></i>
+				
+                <p >Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+
+              <a  th:href="@{/admin/servicos/}"  class="nav-link">
+
+                <i class="fas fa-table nav-icon"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Usuários
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+
+              <a class="nav-link"  th:href="@{/admin/usuarios/cadastrar}">
+
+                <i class="nav-icon fas fa-edit nav-icon"></i>
+				
+                <p >Cadastrar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+
+              <a  th:href="@{/admin/usuarios/}"  class="nav-link">
+
+                <i class="fas fa-table nav-icon"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
