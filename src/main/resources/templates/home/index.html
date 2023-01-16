@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},~{::styles},_ )}">>
+<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
 <head>
-    <title>Lista de Serviços</title>
+    <title>Apresentação</title>
 </head>
 <body>
 	<main>
@@ -18,8 +18,6 @@
             </div>
         </div>
     </main>
-     <th:block th:fragment="styles">
-    	<link th:href="@{/css/home.css}" rel="stylesheet" />
-    </th:block>
+     
 </body>
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>App Name | <th:block th:include="${title}"> Dashboard </th:block>
+  <title>Chapa R.E.P.S | <th:block th:include="${title}"> Dashboard </th:block>
   </title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -19,6 +19,7 @@
     th:href="@{/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
   <!-- iCheck -->
   <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+  
   <!-- JQVMap -->
   <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/jqvmap/jqvmap.min.css}">
   <!-- Theme style -->
@@ -31,7 +32,9 @@
   <link rel="stylesheet" th:href="@{/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.css}">
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-	
+	 
+  <link th:href="@{/css/global.css}" rel="stylesheet" />
+
   <th:block th:replace="${styles}"></th:block>
 </head>
 
