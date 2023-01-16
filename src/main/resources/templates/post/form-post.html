@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,_)}">
+<head>
+    <title>Formulário de Serviço</title>
+</head>
+<body>
+    <main>
+        <div class="row">
+           <div class="col">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="title">
+                        Publique uma postagem
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                
+                    <form method="POST" th:object="${form}">
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Título*:</label>
+                                    <input class="form-control" type="text" th:field="*{title}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('title')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                                <div class="col-12">
+                                <div class="form-group">
+                                    <label for="text">Texto:</label>
+                                    <input class="form-control money" type="text"  th:field="*{text}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('text')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="icone">Local da postagem:</label>
+                                    <select class="form-control" th:field="*{postType}">
+                                    <option th:each="postType : ${postTypes}" th:text="${postType.nome}" th:value="${postType}"></option>
+                                    </select> 
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('postType')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                                
+                            
+                        </div>
+                        
+                         <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                    
+                </div>
+              </div>
+           </div> 
+        </div>
+    </main>
+   
+    
+    
+</body>
+</html>

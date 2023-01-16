@@ -1,17 +1,11 @@
-package br.com.reps.entities;
+package br.com.reps.dtos.requests;
 
 import java.time.LocalDate;
 
 import br.com.reps.entities.enums.PostType;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,20 +13,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "tb_post")
-public class Post {
+public class PostRequest {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+
 	private String title;
 	
 	@Lob
 	private String text;
 	
-	private LocalDate date;
 	
 	/*
 	@ManyToOne

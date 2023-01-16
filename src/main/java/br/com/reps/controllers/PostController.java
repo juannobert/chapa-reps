@@ -1,16 +1,45 @@
 package br.com.reps.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import br.com.reps.dtos.requests.PostRequest;
+import br.com.reps.entities.enums.PostType;
+import br.com.reps.services.PostService;
 
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/post")
 public class PostController {
 	
-	@GetMapping
-	public String posts() {
-		return "post/notice";
+	@Autowired
+	private PostService service;
+	
+	@GetMapping("/avisos")
+	public ModelAndView posts() {
+		ModelAndView mv = new ModelAndView("post/notice");
+		mv.addObject("posts", service.buscarTodos());
+		return mv;
 	}
+	
+	@GetMapping("/avisos/novo")
+	public ModelAndView postForm() {
+		ModelAndView mv = new ModelAndView("post/form-post");
+		mv.addObject("form", new PostRequest());
+		return mv;
+	}
+	
+	
+	
+	@ModelAttribute("postTypes")
+	public PostType[] getPostType() {
+		return PostType.values();
+	}
+	
+	
+	
 
 }
