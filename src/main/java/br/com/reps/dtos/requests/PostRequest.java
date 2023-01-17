@@ -1,7 +1,5 @@
 package br.com.reps.dtos.requests;
 
-import java.time.LocalDate;
-
 import br.com.reps.entities.enums.PostType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

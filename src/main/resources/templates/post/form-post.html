@@ -10,7 +10,7 @@
            <div class="col">
             <div class="card card-primary">
                 <div class="card-header">
-                    <div class="title">
+                    <div class="title home-title">
                         Publique uma postagem
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                         
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="title">Título*:</label>
+                                    <label for="title">Título:</label>
                                     <input class="form-control" type="text" th:field="*{title}">
                                     <ul>
                                     	<li class="text-danger" th:each="erro : ${#fields.errors('title')}" th:text="${erro}"></li>
@@ -30,9 +30,9 @@
                                 </div>
                             </div> 
                                 <div class="col-12">
-                                <div class="form-group">
+                                <divclass="form-group">
                                     <label for="text">Texto:</label>
-                                    <input class="form-control money" type="text"  th:field="*{text}">
+                                    <textarea class="form-control money" type="text"  th:field="*{text}"/>
                                     <ul>
                                     	<li class="text-danger" th:each="erro : ${#fields.errors('text')}" th:text="${erro}"></li>
                                     </ul>
@@ -53,8 +53,8 @@
                                 
                             
                         </div>
-                        
-                         <button type="submit" class="btn btn-primary">Enviar</button>
+                        <div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+                         
                     </form>
                     
                 </div>

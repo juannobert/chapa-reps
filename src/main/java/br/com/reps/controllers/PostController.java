@@ -28,7 +28,7 @@ public class PostController {
 		return mv;
 	}
 	
-	@GetMapping("/avisos/novo")
+	@GetMapping("/novo")
 	public ModelAndView postForm() {
 		ModelAndView mv = new ModelAndView("post/form-post");
 		mv.addObject("form", new PostRequest());
