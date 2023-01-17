@@ -1,8 +1,8 @@
 package br.com.reps.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.reps.dtos.responses.PostResponse;
@@ -18,11 +18,9 @@ public class PostService {
 	@Autowired
 	private PostMapper mapper;
 	
-	public List<PostResponse> buscarTodos(){
-		return postRepository.findAll()
-				.stream()
-				.map(mapper::toResponse)
-				.toList();
+	public Page<PostResponse> buscarTodos(Pageable pageable){
+		return postRepository.findAll(pageable)
+				.map(mapper::toResponse);
 	}
 	
 	

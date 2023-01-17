@@ -1,6 +1,8 @@
 package br.com.reps.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,9 +21,10 @@ public class PostController {
 	private PostService service;
 	
 	@GetMapping("/avisos")
-	public ModelAndView posts() {
+	public ModelAndView posts(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
-		mv.addObject("posts", service.buscarTodos());
+		mv.addObject("posts", service.buscarTodos(pageable));
+		mv.addObject("page", service.buscarTodos(pageable));
 		return mv;
 	}
 	
