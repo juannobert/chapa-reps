@@ -22,13 +22,15 @@ public class PostService {
 	@Autowired
 	private PostMapper mapper;
 	
-	public Page<PostResponse> buscarTodos(Pageable pageable){
-		
-		
-		return repository.findAllOrder(pageable)
+	public Page<PostResponse> buscarTodosAvisos(Pageable pageable){
+		return repository.findAllOrderNotice(pageable)
 				.map(mapper::toResponse);
 	}
 	
+	public Page<PostResponse> buscarTodosTransparencia(Pageable pageable){
+		return repository.findAllOrderTransparencia(pageable)
+				.map(mapper::toResponse);
+	}
 	
 	public Post inserir(PostRequest request) {
 		Post entity = mapper.toModel(request);

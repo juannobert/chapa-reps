@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -25,12 +26,23 @@ public class PostController {
 	private PostService service;
 	
 	@GetMapping("/avisos")
-	public ModelAndView posts(@PageableDefault(size = 5) Pageable pageable) {
+	public ModelAndView postsAvisos(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
-		mv.addObject("posts", service.buscarTodos(pageable));
-		mv.addObject("page", service.buscarTodos(pageable));
+		mv.addObject("posts", service.buscarTodosAvisos(pageable));
+		mv.addObject("page", service.buscarTodosAvisos(pageable));
+		mv.addObject("pageTitle", "avisos");
 		
-		System.out.println(service.buscarTodos(pageable).getNumber());
+		return mv;
+	}
+	
+	@GetMapping("/transparencia")
+	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("post/notice");
+		mv.addObject("posts", service.buscarTodosTransparencia(pageable));
+		mv.addObject("page", service.buscarTodosTransparencia(pageable));
+		mv.addObject("pageTitle", "transparência");
+		
+		
 		return mv;
 	}
 	
@@ -51,14 +63,8 @@ public class PostController {
 		
 	}
 	
-	
-	
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {
 		return PostType.values();
 	}
-	
-	
-	
-
 }

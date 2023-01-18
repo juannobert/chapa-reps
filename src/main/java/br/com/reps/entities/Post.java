@@ -2,8 +2,6 @@ package br.com.reps.entities;
 
 import java.time.LocalDate;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import br.com.reps.entities.enums.PostType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,6 +37,7 @@ public class Post {
 	@ManyToOne
 	private User author;
 	*/
+
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
 }
