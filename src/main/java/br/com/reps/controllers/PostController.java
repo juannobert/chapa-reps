@@ -25,12 +25,20 @@ public class PostController {
 	private PostService service;
 	
 	@GetMapping("/avisos")
-	public ModelAndView posts(@PageableDefault(size = 5) Pageable pageable) {
+	public ModelAndView postsAvisos(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
-		mv.addObject("posts", service.buscarTodos(pageable));
-		mv.addObject("page", service.buscarTodos(pageable));
+		mv.addObject("posts", service.buscarTodosAvisos(pageable));
+		mv.addObject("page", service.buscarTodosAvisos(pageable));
 		
-		System.out.println(service.buscarTodos(pageable).getNumber());
+		return mv;
+	}
+	
+	@GetMapping("/transparencia")
+	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable) {
+		ModelAndView mv = new ModelAndView("post/notice");
+		mv.addObject("posts", service.buscarTodosTransparencia(pageable));
+		mv.addObject("page", service.buscarTodosTransparencia(pageable));
+		
 		return mv;
 	}
 	
@@ -51,14 +59,8 @@ public class PostController {
 		
 	}
 	
-	
-	
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {
 		return PostType.values();
 	}
-	
-	
-	
-
 }

@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.reps.dtos.requests.PostRequest;
@@ -24,13 +22,15 @@ public class PostService {
 	@Autowired
 	private PostMapper mapper;
 	
-	public Page<PostResponse> buscarTodos(Pageable pageable){
-		
-		
-		return repository.findAllOrder(pageable)
+	public Page<PostResponse> buscarTodosAvisos(Pageable pageable){
+		return repository.findAllOrderNotice(pageable)
 				.map(mapper::toResponse);
 	}
 	
+	public Page<PostResponse> buscarTodosTransparencia(Pageable pageable){
+		return repository.findAllOrderTransparencia(pageable)
+				.map(mapper::toResponse);
+	}
 	
 	public Post inserir(PostRequest request) {
 		Post entity = mapper.toModel(request);

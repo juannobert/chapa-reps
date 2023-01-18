@@ -3,7 +3,9 @@ package br.com.reps.dtos.requests;
 import br.com.reps.entities.enums.PostType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +16,14 @@ import lombok.NoArgsConstructor;
 public class PostRequest {
 
 
+	@NotEmpty
+	@NotNull
+	@Size(min = 3,max = 80)
 	private String title;
 	
+	@NotEmpty
+	@NotNull
+	@Size(min = 3,max = 255)
 	private String text;
 	
 	
@@ -23,6 +31,7 @@ public class PostRequest {
 	@ManyToOne
 	private User author;
 	*/
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
 }
