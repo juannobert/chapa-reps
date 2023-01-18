@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,15 +30,18 @@ public class PostController {
 		ModelAndView mv = new ModelAndView("post/notice");
 		mv.addObject("posts", service.buscarTodosAvisos(pageable));
 		mv.addObject("page", service.buscarTodosAvisos(pageable));
+		mv.addObject("pageTitle", "avisos");
 		
 		return mv;
 	}
 	
 	@GetMapping("/transparencia")
-	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable) {
+	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("post/notice");
 		mv.addObject("posts", service.buscarTodosTransparencia(pageable));
 		mv.addObject("page", service.buscarTodosTransparencia(pageable));
+		mv.addObject("pageTitle", "transparência");
+		
 		
 		return mv;
 	}

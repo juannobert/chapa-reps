@@ -9,7 +9,7 @@
             <div class="col">
                 <div class="card card-success">
                     <div class="card-header">
-                        <div class="card-title home-title">Central de avisos</div>
+                        <div class="card-title home-title">Central de <span th:text="${pageTitle}"></span></div>
                         <div class="card-tools">
                         	<a th:href="@{/post/novo}" class="btn btn-sm btn-primary">Novo Post</a>
                         </div>
@@ -60,8 +60,8 @@
         </ul>
     </nav>
 </div>
-    </main>
-    
+</main>
+
  
      
 </body>

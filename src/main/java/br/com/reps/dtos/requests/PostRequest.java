@@ -23,7 +23,6 @@ public class PostRequest {
 	
 	@NotEmpty
 	@NotNull
-	@Size(min = 3,max = 255)
 	private String text;
 	
 	
