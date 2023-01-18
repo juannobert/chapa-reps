@@ -16,7 +16,6 @@ public class PostRequest {
 
 	private String title;
 	
-	@Lob
 	private String text;
 	
 	

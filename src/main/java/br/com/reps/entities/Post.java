@@ -2,6 +2,8 @@ package br.com.reps.entities;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.reps.entities.enums.PostType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
