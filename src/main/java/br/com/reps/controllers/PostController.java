@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.reps.dtos.requests.PostRequest;
+import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,7 +36,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/transparencia")
-	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable,HttpServletRequest request) {
+	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
 		mv.addObject("posts", service.buscarTodosTransparencia(pageable));
 		mv.addObject("page", service.buscarTodosTransparencia(pageable));
@@ -59,7 +59,11 @@ public class PostController {
 		if(result.hasErrors())
 			return "post/form-post";
 		service.inserir(request);
-		return "redirect:/post/avisos";
+		attrs.addFlashAttribute("alert",new AlertMessage("Postagem publicada com sucesso","alert-primary"));
+		if(request.getPostType().equals(PostType.NOTICE))
+			return "redirect:/post/avisos";
+		
+		return "redirect:/post/transparencia";
 		
 	}
 	
