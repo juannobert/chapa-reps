@@ -12,6 +12,7 @@ import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.mappers.PostMapper;
 import br.com.reps.repositories.PostRepository;
+import br.com.reps.services.exceptions.EntityNotFoundException;
 
 @Service
 public class PostService {
@@ -28,7 +29,7 @@ public class PostService {
 	}
 	
 	public Page<PostResponse> buscarTodosTransparencia(Pageable pageable){
-		return repository.findAllOrderTransparencia(pageable)
+		return repository.findAllOrderTransparency(pageable)
 				.map(mapper::toResponse);
 	}
 	
@@ -36,8 +37,16 @@ public class PostService {
 		Post entity = mapper.toModel(request);
 		entity.setDate(LocalDate.now());
 		return repository.save(entity);
-
 	}
+	
+	public PostResponse findById(Long id) {
+		return repository.findById(id)
+				.stream()
+				.map(mapper::toResponse)
+				.findFirst()
+				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"));
+	}
+	
 	
 	
 }

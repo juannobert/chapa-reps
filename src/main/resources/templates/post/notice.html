@@ -18,14 +18,19 @@
 						
         				
         				<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
-		            	 	<div class="card-body">
-		                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
-		                    		<div><i class="bi bi-person"></i><span>Juan Nobert</span></div>
-		                    		<div><i class="bi bi-calendar-event"></i><span th:text="${post.date}"></span></div>
-		                		</p>
-		               			 <a ><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}">Título</span></h4></a>
-		                		 <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,400)} "></p>
-		           		   </div>
+        					<a th:href="@{/post/{id}(id=${post.id})}">
+			            	 	<div class="card-body">
+			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+			                    		<i class="bi bi-person"></i>
+			                			<span>Juan Nobert</span>
+			                			<br>
+			                			<i class="bi bi-calendar-event"></i>
+			               				<span th:text="${post.date}"></span>
+			                		</p>
+			               			  <h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}">Título</span></h4>
+			                		 <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,400)} "></p>
+			           		   </div>
+        					</a>
         				</div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 	Page<Post> findAllOrderNotice(Pageable pageable);
 	
 	@Query("SELECT p FROM Post p WHERE p.postType = 'TRANSPARENCY' ORDER BY p.id DESC")
-	Page<Post> findAllOrderTransparencia(Pageable pageable);
+	Page<Post> findAllOrderTransparency(Pageable pageable);
+	
 
 }

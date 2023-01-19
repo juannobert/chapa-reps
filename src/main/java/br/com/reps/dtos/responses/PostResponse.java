@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 
 public class PostResponse {
 
+	private long id;
+	
 	private String title;
 	
 	private String text;
