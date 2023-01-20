@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
+<head>
+    <title><span th:text="${post.title}"></span></title>
+</head>
+<body>
+	<main>
+         <div class="row">
+            <div class="col">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <div class="card-title home-title"><span th:text="${post.title}"></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+        				<div class="container-fluid">
+							 <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;">
+			            	 	<div class="card-body">
+			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+			                    		<i class="bi bi-person"></i>
+			                			<span>Juan Nobert</span>
+			                			<br>
+			                			<i class="bi bi-calendar-event"></i>
+			               				<span th:text="${post.date}"></span>
+			                		</p>
+			               			<h1 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}"></span></h1>
+		                		 <p class="card-text" style="margin-top: 20px;"><span th:utext="${post.text}"></span></p>
+		                		 <a    class="btn btn-danger">Excluir</a>
+		           		 		</div>
+        					</div>
+        				</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+ 
+     
+</body>
+</html>
