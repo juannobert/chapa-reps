@@ -2,7 +2,8 @@ package br.com.reps.entities.enums;
 
 public enum PostType {
 	NOTICE("Central de avisos"),
-	TRANSPARENCY("Central da transparência");
+	TRANSPARENCY("Central da transparência"),
+	SUPPORT("Ouvidoria");
 	
 	private String nome;
 	

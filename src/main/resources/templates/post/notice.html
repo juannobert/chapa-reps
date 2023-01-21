@@ -11,12 +11,10 @@
                     <div class="card-header">
                         <div class="card-title home-title">Central de <span th:text="${pageTitle}"></span></div>
                         <div class="card-tools">
-                        	<a th:href="@{/post/novo}" class="btn btn-sm btn-primary">Novo Post</a>
+                        	<a th:href="@{/post/publi/novo}" class="btn btn-sm btn-primary">Novo Post</a>
                         </div>
                     </div>
                     <div class="card-body">
-						
-        				
         				<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
         					<a th:href="@{/post/{id}(id=${post.id})}">
 			            	 	<div class="card-body">

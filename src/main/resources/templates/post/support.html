@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
+<head>
+    <title>Ouvidoria</title>
+</head>
+<body>
+	<main>
+         <div class="row">
+            <div class="col">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <div class="card-title home-title">Ouvidoria</span></div>
+                        <div class="card-tools">
+                        	<a th:href="@{/post/ouvidoria/novo}" class="btn btn-sm btn-primary">Nova Pergunta</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
+        					<a th:href="@{/post/{id}(id=${post.id})}">
+			            	 	<div class="card-body">
+			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+			                    		<i class="bi bi-person"></i>
+			                			<span>Juan Nobert</span>
+			                			<br>
+			                			<i class="bi bi-calendar-event"></i>
+			               				<span th:text="${post.date}"></span>
+			                		</p>
+			               			  <h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}">Título</span></h4>
+			                		 <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,400)} "></p>
+			           		   </div>
+			           		     <div class="card-body">
+								    <a href="#" class="card-link">Respostas(0)</a>
+							  </div>
+        					</a>
+        				</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+ 
+     
+</body>
+</html>

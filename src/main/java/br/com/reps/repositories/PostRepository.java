@@ -15,5 +15,8 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 	@Query("SELECT p FROM Post p WHERE p.postType = 'TRANSPARENCY' ORDER BY p.id DESC")
 	Page<Post> findAllOrderTransparency(Pageable pageable);
 	
+	@Query("SELECT p FROM Post p WHERE p.postType = 'SUPPORT' ORDER BY p.id DESC")
+	Page<Post> findAllSupports(Pageable pageable);
+	
 
 }

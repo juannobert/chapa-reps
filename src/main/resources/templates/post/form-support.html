@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,~{::scripts})}">
+<head>
+    <title>Formulário de Serviço</title>
+</head>
+<body>
+    <main>
+        <div class="row">
+           <div class="col">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="title home-title">
+                        Faça uma pergunta
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                
+                    <form method="POST" th:object="${form}">
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Título:</label>
+                                    <input class="form-control" type="text" th:field="*{title}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('title')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            
+                                <div class="col-12">
+                                <divclass="form-group">
+                                    <label for="text">Texto:</label>
+                                    <textarea class="form-control money" id="summernote" type="text"  th:field="*{text}"/>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('text')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        <div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+                        </div>
+                         
+                    </form>
+                    
+                </div>
+              </div>
+           </div> 
+        </div>
+    </main>
+    
+   <th:block th:fragment="scripts">
+	    <script> $('#summernote').summernote({
+			placeholder: 'Texto *', tabsize: 2, height: 300, 
+			  toolbar: [
+				    // [groupName, [list of button]]
+				    ['style', ['bold', 'italic', 'underline', 'clear']],
+				    ['font', ['strikethrough', 'superscript', 'subscript']],
+				    ['fontsize', ['fontsize']],
+				    ['color', ['color']],
+				    ['para', ['ul', 'ol', 'paragraph']],
+				    ['height', ['height']]
+				  ]
+				}); 
+		</script>
+	</th:block>
+    
+    
+</body>
+</html>

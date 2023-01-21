@@ -1,6 +1,8 @@
 package br.com.reps.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +43,9 @@ public class Post {
 	@ManyToOne
 	private User author;
 	*/
+	
+	@OneToMany
+	private List<Post> answers = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
