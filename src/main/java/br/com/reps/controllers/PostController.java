@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.AlertMessage;
@@ -31,11 +32,21 @@ public class PostController {
 	@GetMapping("/{id}")
 	public ModelAndView findPostById(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("post/post-details");
-		
 		mv.addObject("post", service.findById(id));
+		if(service.isSupportbyId(id)) {
+			mv.addObject("form", new AnswerRequest());
+		}
 		
 		return mv;
 	}
+	
+	@PostMapping("/{id}")
+	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
+			RedirectAttributes attrs) {
+		service.addComents(id, request);
+		return "redirect:/post/" + id;
+	}
+
 
 	/* Publicações */
 	@GetMapping("/avisos")
@@ -82,7 +93,16 @@ public class PostController {
 	}
 	
 	
-	 /*Ouvidoria*/
+	/*Ouvidoria*/
+	@GetMapping("/ouvidoria")
+	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
+		ModelAndView mv = new ModelAndView("post/support");
+		mv.addObject("posts", service.findAllSupports(pageable));
+		
+		
+		return mv;
+	}
+	 
 	@GetMapping("/ouvidoria/novo")
 	public ModelAndView supportForm() {
 		ModelAndView mv = new ModelAndView("post/form-support");
@@ -90,6 +110,7 @@ public class PostController {
 		return mv; 
 		
 	}
+	
 	
 	@PostMapping("/ouvidoria/novo")
 	public String supportForm(@Valid @ModelAttribute("form") SupportRequest request,BindingResult result,RedirectAttributes attrs) {
@@ -101,15 +122,6 @@ public class PostController {
 		return "redirect:/post/ouvidoria";
 	}
 	
-	
-	@GetMapping("/ouvidoria")
-	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
-		ModelAndView mv = new ModelAndView("post/support");
-		mv.addObject("posts", service.findAllSupports(pageable));
-		
-		
-		return mv;
-	}
 	
 	
 	@ModelAttribute("postTypes")

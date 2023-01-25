@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
+<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,~{::scripts})}">>
 <head>
     <title><span th:text="${post.title}"></span></title>
 </head>
@@ -24,8 +24,37 @@
 			               				<span th:text="${post.date}"></span>
 			                		</p>
 			               			<h1 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}"></span></h1>
-		                		 <p class="card-text" style="margin-top: 20px;"><span th:utext="${post.text}"></span></p>
-		                		 <a    class="btn btn-danger">Excluir</a>
+			                		 <p class="card-text" style="margin-top: 20px;"><span th:utext="${post.text}"></span></p>
+			                		 </div>
+			                		 <div class="card-body" th:if="${form != null}">
+			                		 	<form method="POST" th:object="${form}">
+			                		 		<div class="row">
+			                		 			 <div class="col-12">
+				                                <div class="form-group">
+				                                	<label for="text">Digite sua resposta:</label>
+				                                    <textarea class="form-control" id="summernote" type="text"  th:field="*{text}"/>
+				                                    <ul>
+				                                    	<li class="text-danger" th:each="erro : ${#fields.errors('text')}" th:text="${erro}"></li>
+				                                    </ul>
+				                                </div>
+				                            </div> 
+				                        	<div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+				                        </div>
+			                		 </div>
+			                		</form>
+		           		 		</div>
+		           		 		<div class="card shadow-sm bg-white rounded" th:each="comentario : ${post.answers}" style="margin-top: 20px;">
+			            	 	<div class="card-body">
+			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+			                    		<i class="bi bi-person"></i>
+			                			<span>Juan Nobert</span>
+			                			<br>
+			                			<i class="bi bi-calendar-event"></i>
+			               				<span th:text="${comentario.date}"></span>
+			                		</p>
+			                		 <p class="card-text" style="margin-top: 20px;"><span th:utext="${comentario.text}"></span></p>
+			                		 </div>
+			                		 
 		           		 		</div>
         					</div>
         				</div>
@@ -33,6 +62,10 @@
                 </div>
             </div>
         </div>
+        <th:block th:fragment="scripts">
+	    	<th:block th:replace="~{fragments/_summernote :: summernote}"> 
+	    </th:block>
+	</th:block>
 </main>
 
  

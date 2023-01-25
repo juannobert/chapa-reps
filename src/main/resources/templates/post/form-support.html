@@ -51,19 +51,8 @@
     </main>
     
    <th:block th:fragment="scripts">
-	    <script> $('#summernote').summernote({
-			placeholder: 'Texto *', tabsize: 2, height: 300, 
-			  toolbar: [
-				    // [groupName, [list of button]]
-				    ['style', ['bold', 'italic', 'underline', 'clear']],
-				    ['font', ['strikethrough', 'superscript', 'subscript']],
-				    ['fontsize', ['fontsize']],
-				    ['color', ['color']],
-				    ['para', ['ul', 'ol', 'paragraph']],
-				    ['height', ['height']]
-				  ]
-				}); 
-		</script>
+	    <th:block th:replace="~{fragments/_summernote :: summernote}"> 
+	    </th:block>
 	</th:block>
     
     

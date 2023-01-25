@@ -15,7 +15,6 @@ public class SupportResponse {
 	
 	private String title;
 	
-	
 	private String text;
 	
 	private LocalDate date;

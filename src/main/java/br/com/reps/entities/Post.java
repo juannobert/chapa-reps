@@ -7,9 +7,11 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.reps.entities.enums.PostType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,9 +46,13 @@ public class Post {
 	private User author;
 	*/
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private List<Post> answers = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
+	
+	public boolean isSupport() {
+		return postType.equals(PostType.SUPPORT);
+	}
 }

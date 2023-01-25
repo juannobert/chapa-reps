@@ -7,15 +7,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
+import br.com.reps.dtos.responses.AnswerResponse;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.dtos.responses.SupportResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.mappers.PostMapper;
 import br.com.reps.repositories.PostRepository;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.reps.services.exceptions.EntityNotFoundException;
 
 @Service
 public class PostService {
@@ -54,8 +56,23 @@ public class PostService {
 		entity.setPostType(PostType.SUPPORT);	
 		return repository.save(entity);
 	}
-	
-	
+
+
+	public Post addComents(Long id,AnswerRequest request) {
+		Post entity = repository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Comentário não encontrado"));
+		
+		Post answer = mapper.toModel(request);
+		answer.setDate(LocalDate.now());
+		answer = repository.save(answer);
+		
+		entity.getAnswers().add(answer);
+		
+		return repository.save(entity);
+		
+		
+					
+	}
 	
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
@@ -63,6 +80,12 @@ public class PostService {
 				.map(mapper::toResponse)
 				.findFirst()
 				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"));
+	}
+	
+	public boolean isSupportbyId(Long id) {
+		return repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"))
+				.isSupport();
 	}
 	
 	
