@@ -29,7 +29,7 @@
 			                		 <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,400)} "></p>
 			           		   </div>
 			           		     <div class="card-body">
-								    <a href="#" class="card-link">Respostas(<span th:text="${size}"></span>)</a>
+								    <a href="#" class="card-link">Respostas(<span th:text="${post.answers.size()}"></span>)</a>
 							  </div>
         					</a>
         				</div>

@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label for="icone">Local da postagem:</label>
                                     <select class="form-control" th:field="*{postType}">
-                                    <option th:each="postType : ${postTypes}" th:text="${postType.nome}" th:value="${postType}"></option>
+                                    <option th:if="${postType.nome != 'Ouvidoria'}" th:each="postType : ${postTypes}" th:text="${postType.nome}" th:value="${postType}"></option>
                                     </select> 
                                     <ul>
                                     	<li class="text-danger" th:each="erro : ${#fields.errors('postType')}" th:text="${erro}"></li>

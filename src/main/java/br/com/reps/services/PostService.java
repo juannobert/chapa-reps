@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
-import br.com.reps.dtos.responses.AnswerResponse;
 import br.com.reps.dtos.responses.PostResponse;
-import br.com.reps.dtos.responses.SupportResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.mappers.PostMapper;
@@ -28,20 +26,11 @@ public class PostService {
 	@Autowired
 	private PostMapper mapper;
 	
-	public Page<PostResponse> buscarTodosAvisos(Pageable pageable){
-		return repository.findAllOrderNotice(pageable)
+
+	
+	public Page<PostResponse> findAllPosts(Pageable pageable,PostType postType){
+		return repository.findAll(pageable,postType)
 				.map(mapper::toResponse);
-	}
-	
-	public Page<PostResponse> buscarTodosTransparencia(Pageable pageable){
-		return repository.findAllOrderTransparency(pageable)
-				.map(mapper::toResponse);
-	
-	}
-	
-	public Page<SupportResponse> findAllSupports(Pageable pageable){
-		return repository.findAllSupports(pageable)
-				.map(mapper::toSupportResponse);
 	}
 	
 	public Post insertNotice(PostRequest request) {
@@ -68,10 +57,7 @@ public class PostService {
 		
 		entity.getAnswers().add(answer);
 		
-		return repository.save(entity);
-		
-		
-					
+		return repository.save(entity);		
 	}
 	
 	public PostResponse findById(Long id) {

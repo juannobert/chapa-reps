@@ -1,6 +1,7 @@
 package br.com.reps.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.AlertMessage;
+import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
 import jakarta.validation.Valid;
@@ -44,7 +46,8 @@ public class PostController {
 	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
 			RedirectAttributes attrs) {
 		service.addComents(id, request);
-		return "redirect:/post/" + id;
+		
+		return "redirect:/post/ouvidoria";
 	}
 
 
@@ -52,8 +55,9 @@ public class PostController {
 	@GetMapping("/avisos")
 	public ModelAndView postsAvisos(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
-		mv.addObject("posts", service.buscarTodosAvisos(pageable));
-		mv.addObject("page", service.buscarTodosAvisos(pageable));
+		Page<PostResponse> page = service.findAllPosts(pageable, PostType.NOTICE);
+		mv.addObject("posts", page);
+		mv.addObject("page", page);
 		mv.addObject("pageTitle", "avisos");
 		
 		return mv;
@@ -64,8 +68,9 @@ public class PostController {
 	@GetMapping("/transparencia")
 	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
-		mv.addObject("posts", service.buscarTodosTransparencia(pageable));
-		mv.addObject("page", service.buscarTodosTransparencia(pageable));
+		Page<PostResponse> page = service.findAllPosts(pageable, PostType.TRANSPARENCY);
+		mv.addObject("posts", page);
+		mv.addObject("page", page);
 		mv.addObject("pageTitle", "transparência");
 		
 		
@@ -95,9 +100,9 @@ public class PostController {
 	
 	/*Ouvidoria*/
 	@GetMapping("/ouvidoria")
-	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
+	public ModelAndView supportPosts( @PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/support");
-		mv.addObject("posts", service.findAllSupports(pageable));
+		mv.addObject("posts", service.findAllPosts(pageable,PostType.SUPPORT));
 		
 		
 		return mv;
