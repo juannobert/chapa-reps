@@ -73,11 +73,4 @@ public class PostService {
 				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"))
 				.isSupport();
 	}
-	
-	
-	
-	
-	
-	
-	
 }
