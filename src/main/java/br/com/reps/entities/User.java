@@ -1,5 +1,7 @@
 package br.com.reps.entities;
 
+import br.com.reps.entities.enums.Function;
+import br.com.reps.entities.enums.Officie;
 import br.com.reps.entities.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,12 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
+	
+	@Enumerated(EnumType.STRING)
+	private Officie officie;
+	
+	@Enumerated(EnumType.STRING)
+	private Function function;
 	
 	
 	

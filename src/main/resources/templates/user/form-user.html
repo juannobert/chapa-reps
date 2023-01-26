@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,~{::scripts})}">
+<head>
+ 
+    <title>Formulário de Serviço</title>
+</head>
+<body>
+    <main>
+        <div class="row">
+           <div class="col">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="title home-title">
+                        Cadastro de Gremista
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                
+                    <form method="POST" th:object="${form}">
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Nome:</label>
+                                    <input class="form-control" type="text" th:field="*{name}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('name')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" type="text"  th:field="*{email}"/>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('email')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="icone">Cargo:</label>
+                                    <select id="officie" class="form-control" th:field="*{function}">
+                                    <option th:each="officie : ${positions}" th:text="${officie.nome}" th:value="${officie}"></option>
+                                    </select> 
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('function')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="password">Senha:</label>
+                                    <input class="form-control" type="text"  th:field="*{password}"/>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('password')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="passwordConfirmation">Confirmação de senha:</label>
+                                    <input class="form-control" type="text"  th:field="*{passwordConfirmation}"/>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('passwordConfirmation')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        <div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+                        </div>
+                         
+                    </form>
+                    
+                </div>
+              </div>
+           </div> 
+        </div>
+    </main>
+    
+    
+    
+</body>
+</html>
