@@ -1,0 +1,28 @@
+<nav aria-label="Page navigation" th:fragment="pagination (posts)">
+	<ul class="pagination">
+		<li class="page-item" th:class="${posts.isFirst()} ? 'd-none'">
+			<a class="page-link" th:href="@{/post/avisos(page=0)}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li class="page-item" th:class="${posts.number} == 0 ? 'd-none'">
+			<a class="page-link" th:href="@{/post/avisos(page=${page.number-1})}" aria-label="Previous">
+				<span aria-hidden="true">&lsaquo;</span>
+			</a>
+		</li>
+		<li th:each="i : ${#numbers.sequence(0, posts.totalPages-1)}" class="page-item"
+			th:class="${i} == ${posts.number} ? 'active'">
+			<a class="page-link" th:href="@{/post/avisos(page=${i})}">[[${i+1}]]</a>
+		</li>
+		<li class="page-item" th:class="${posts.number+1} > ${posts.totalPages-1} ? 'd-none'">
+			<a class="page-link" th:href="@{/post/avisos(page=${posts.number+1})}" aria-label="Next">
+				<span aria-hidden="true">&rsaquo;</span>
+			</a>
+		</li>
+		<li class="page-item" th:class="${posts.isLast()} ? 'd-none'">
+			<a class="page-link" th:href="@{/post/avisos(page=${posts.totalPages-1})}" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</nav>

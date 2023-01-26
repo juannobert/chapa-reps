@@ -57,20 +57,16 @@ public class PostController {
 		ModelAndView mv = new ModelAndView("post/notice");
 		Page<PostResponse> page = service.findAllPosts(pageable, PostType.NOTICE);
 		mv.addObject("posts", page);
-		mv.addObject("page", page);
 		mv.addObject("pageTitle", "avisos");
 		
 		return mv;
 	}
-	
-	
 	
 	@GetMapping("/transparencia")
 	public ModelAndView postsTransparencia(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/notice");
 		Page<PostResponse> page = service.findAllPosts(pageable, PostType.TRANSPARENCY);
 		mv.addObject("posts", page);
-		mv.addObject("page", page);
 		mv.addObject("pageTitle", "transparência");
 		
 		
@@ -103,8 +99,6 @@ public class PostController {
 	public ModelAndView supportPosts( @PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/support");
 		mv.addObject("posts", service.findAllPosts(pageable,PostType.SUPPORT));
-		
-		
 		return mv;
 	}
 	 
@@ -126,8 +120,6 @@ public class PostController {
 		
 		return "redirect:/post/ouvidoria";
 	}
-	
-	
 	
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {
