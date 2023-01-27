@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,~{::scripts})}">
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,_)}">
 <head>
  
     <title>Formulário de Serviço</title>
@@ -43,11 +43,11 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="icone">Cargo:</label>
-                                    <select id="officie" class="form-control" th:field="*{function}">
+                                    <select class="form-control" th:field="*{officie}">
                                     <option th:each="officie : ${positions}" th:text="${officie.nome}" th:value="${officie}"></option>
                                     </select> 
                                     <ul>
-                                    	<li class="text-danger" th:each="erro : ${#fields.errors('function')}" th:text="${erro}"></li>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('officie')}" th:text="${erro}"></li>
                                     </ul>
                                 </div>
                             </div> 
