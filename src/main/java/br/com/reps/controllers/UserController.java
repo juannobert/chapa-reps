@@ -14,6 +14,7 @@ import br.com.reps.dtos.requests.UserAdminRequest;
 import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.entities.enums.Officie;
 import br.com.reps.services.UserService;
+import br.com.reps.services.exceptions.ValidationException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,9 +36,14 @@ public class UserController {
 	public String supportForm(@Valid @ModelAttribute("form") UserAdminRequest request,BindingResult result,RedirectAttributes attrs) {
 		if(result.hasErrors())
 			return "user/form-user";
+		try {
 		service.insert(request, true);
 		attrs.addFlashAttribute("alert",new AlertMessage("Gremista adicionado com sucesso","alert-primary"));		
 		return "redirect:/usuario/admin/novo";
+		}catch(ValidationException e) {
+			result.addError(e.getFieldError());
+			return "user/form-user";
+		}
 	}
 	
 	@ModelAttribute("positions")
