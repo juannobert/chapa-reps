@@ -1,6 +1,9 @@
 package br.com.reps.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
@@ -15,7 +18,7 @@ import br.com.reps.services.exceptions.UserAlreadyExistsException;
 import br.com.reps.services.exceptions.ValidationException;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 
 	@Autowired
 	private UserRepository repository;
@@ -33,6 +36,7 @@ public class UserService {
 		UserRole role = isAdmin ? UserRole.GREMISTA  : UserRole.ALUNO;
 		entity.setRole(role);
 		
+		System.out.println(entity.getPassword());
 		String password = passwordEncoder.encode(entity.getPassword());
 		entity.setPassword(password);
 		return repository.save(entity);
@@ -56,6 +60,13 @@ public class UserService {
 					obj.getPasswordConfirmation(), false, null, null, msg);
 			throw new ValidationException(fieldError,msg);
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println(username);
+		return repository.findByEmail(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	}
 	
 		
