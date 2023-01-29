@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
 import br.com.reps.dtos.requests.UserAdminRequest;
+import br.com.reps.dtos.requests.UserRequest;
 import br.com.reps.entities.User;
 import br.com.reps.entities.enums.UserRole;
 import br.com.reps.mappers.UserMapper;
 import br.com.reps.repositories.UserRepository;
 import br.com.reps.services.exceptions.UserAlreadyExistsException;
+import br.com.reps.services.exceptions.ValidationException;
 
 @Service
 public class UserService {
@@ -25,6 +27,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	public User insert(UserAdminRequest request,boolean isAdmin) {
+		validarConfirmacaoDeSenha(request);
 		User entity = mapper.toAdminModel(request);
 		validateEmail(entity);
 		UserRole role = isAdmin ? UserRole.GREMISTA  : UserRole.ALUNO;
@@ -40,6 +43,18 @@ public class UserService {
 			String msg = "Email já foi cadastrado";
 			FieldError fieldError = new FieldError(user.getClass().getName(), "email", user.getEmail(), false, null, null, msg);
 			throw new UserAlreadyExistsException(fieldError, msg);
+		}
+	}
+	
+	private void validarConfirmacaoDeSenha(UserRequest obj) {
+		String senha = obj.getPassword();
+		String confirmacaoSenha = obj.getPasswordConfirmation();
+		
+		if (!senha.equals(confirmacaoSenha)) {
+			String msg = "As senhas não conferem";
+			FieldError fieldError = new FieldError(obj.getClass().getName(), "passwordConfirmation",
+					obj.getPasswordConfirmation(), false, null, null, msg);
+			throw new ValidationException(fieldError,msg);
 		}
 	}
 	
