@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
 <head>
-    <title>Central de avisos</title>
+    <th:block th:fragment="title">Central de avisos</th:block>
 </head>
 <body>
 	<main>
@@ -35,12 +35,13 @@
                 </div>
             </div>
         </div>
-           <div th:if="${posts.totalPages > 0}">
-			    <th:block th:replace="~{fragments/_pagination :: pagination (${posts})}"> 
-	    		</th:block>
-			</div>
-</main>
+	<div th:if="${posts.totalPages > 0}">
+	    <th:block th:replace="~{fragments/_pagination :: pagination (${posts})}"> 
+		</th:block>
+	</div>
 
+</main>
+   
  
      
 </body>

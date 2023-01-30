@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
 import br.com.reps.dtos.requests.UserAdminRequest;
+import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
 import br.com.reps.entities.User;
 import br.com.reps.entities.enums.UserRole;
@@ -29,14 +30,15 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public User insert(UserAdminRequest request,boolean isAdmin) {
+	public User insert(UserRequest request) {
+		boolean isAdmin = request instanceof UserAdminRequest ? true : false;
 		validarConfirmacaoDeSenha(request);
-		User entity = mapper.toAdminModel(request);
+		User entity = isAdmin ? mapper.toAdminModel((UserAdminRequest)request) 
+				: mapper.toDefaultModel((UserDefaultRequest)request);
 		validateEmail(entity);
 		UserRole role = isAdmin ? UserRole.GREMISTA  : UserRole.ALUNO;
 		entity.setRole(role);
 		
-		System.out.println(entity.getPassword());
 		String password = passwordEncoder.encode(entity.getPassword());
 		entity.setPassword(password);
 		return repository.save(entity);

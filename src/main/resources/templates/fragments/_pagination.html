@@ -6,7 +6,7 @@
 			</a>
 		</li>
 		<li class="page-item" th:class="${posts.number} == 0 ? 'd-none'">
-			<a class="page-link" th:href="@{/post/avisos(page=${page.number-1})}" aria-label="Previous">
+			<a class="page-link" th:href="@{/post/avisos(page=${posts.number-1})}" aria-label="Previous">
 				<span aria-hidden="true">&lsaquo;</span>
 			</a>
 		</li>

@@ -37,7 +37,7 @@ public class UserController {
 		if(result.hasErrors())
 			return "user/form-user";
 		try {
-		service.insert(request, true);
+		service.insert(request);
 		attrs.addFlashAttribute("alert",new AlertMessage("Gremista adicionado com sucesso","alert-primary"));		
 		return "redirect:/usuario/admin/novo";
 		}catch(ValidationException e) {
@@ -45,6 +45,8 @@ public class UserController {
 			return "user/form-user";
 		}
 	}
+	
+	
 	
 	@ModelAttribute("positions")
 	public Officie[] getOfficie() {
