@@ -21,6 +21,7 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -44,9 +45,8 @@ public class PostController {
 	
 	@PostMapping("/{id}")
 	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
-			RedirectAttributes attrs) {
+			RedirectAttributes attrs,HttpServletRequest requ) {
 		service.addComents(id, request);
-		
 		return "redirect:/post/ouvidoria";
 	}
 
@@ -67,7 +67,7 @@ public class PostController {
 		ModelAndView mv = new ModelAndView("post/notice");
 		Page<PostResponse> page = service.findAllPosts(pageable, PostType.TRANSPARENCY);
 		mv.addObject("posts", page);
-		mv.addObject("pageTitle", "transparência");
+		mv.addObject("pageTitle", "transparencia");
 		
 		
 		return mv;

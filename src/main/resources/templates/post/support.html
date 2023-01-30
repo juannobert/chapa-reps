@@ -37,6 +37,10 @@
                 </div>
             </div>
         </div>
+        <div th:if="${posts.totalPages > 0}">
+			    <th:block th:replace="~{fragments/_pagination :: pagination (${posts},'ouvidoria')}"> 
+	    		</th:block>
+			</div>
 </main>
 
  

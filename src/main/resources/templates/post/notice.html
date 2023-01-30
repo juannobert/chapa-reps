@@ -36,7 +36,7 @@
             </div>
         </div>
 	<div th:if="${posts.totalPages > 0}">
-	    <th:block th:replace="~{fragments/_pagination :: pagination (${posts})}"> 
+	    <th:block th:replace="~{fragments/_pagination :: pagination (${posts},${pageTitle})}"> 
 		</th:block>
 	</div>
 
