@@ -10,7 +10,7 @@ import br.com.reps.entities.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 	
-	PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
+	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 	
 	User toAdminModel(UserAdminRequest request);
 	
