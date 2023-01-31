@@ -1,5 +1,7 @@
 package br.com.reps.dtos.requests;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,5 +19,6 @@ public class TutorialRequest {
 	
 	@NotBlank
 	@NotNull
+	@URL
 	private String Url;
 }

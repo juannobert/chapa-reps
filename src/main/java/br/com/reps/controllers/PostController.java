@@ -45,7 +45,7 @@ public class PostController {
 	
 	@PostMapping("/{id}")
 	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
-			RedirectAttributes attrs,HttpServletRequest requ) {
+			RedirectAttributes attrs) {
 		service.addComents(id, request);
 		return "redirect:/post/ouvidoria";
 	}

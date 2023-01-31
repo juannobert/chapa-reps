@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,_)}">
+<head>
+    <th:block th:fragment="title">Novo tutorial</th:block>
+</head>
+<body>
+    <main>
+        <div class="row">
+           <div class="col">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="title home-title">
+                        Novo tutorial
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                
+                    <form method="POST" th:object="${form}">
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Título:</label>
+                                    <input class="form-control" type="text" th:field="*{title}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('title')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            
+                                <div class="col-12">
+                                <divclass="form-group">
+                                    <label for="text">URL:</label>
+                                     <input class="form-control" type="text" th:field="*{url}">
+                                     <small>A URL precisa ser de um video do youtube</small>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('url')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        <div class="col-12"><button type="submit" class="btn btn-success">Cadastrar</button></div>
+                        </div>
+                         
+                    </form>
+                    
+                </div>
+              </div>
+           </div> 
+        </div>
+    </main>
+    
+
+    
+    
+</body>
+</html>
