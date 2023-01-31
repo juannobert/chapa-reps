@@ -12,10 +12,12 @@ import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
+import br.com.reps.entities.User;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.mappers.PostMapper;
 import br.com.reps.repositories.PostRepository;
 import br.com.reps.services.exceptions.EntityNotFoundException;
+import br.com.reps.utils.SecurityUtils;
 
 @Service
 public class PostService {
@@ -26,7 +28,8 @@ public class PostService {
 	@Autowired
 	private PostMapper mapper;
 	
-
+	@Autowired
+	private SecurityUtils securityUtils;
 	
 	public Page<PostResponse> findAllPosts(Pageable pageable,PostType postType){
 		return repository.findAll(pageable,postType)
@@ -36,6 +39,9 @@ public class PostService {
 	public Post insertNotice(PostRequest request) {
 		Post entity = mapper.toModel(request);
 		entity.setDate(LocalDate.now());
+		
+		User user = securityUtils.getUsuarioLogado();
+		entity.setAuthor(user);
 		return repository.save(entity);
 	}
 	
@@ -43,6 +49,9 @@ public class PostService {
 		Post entity = mapper.toModel(request);
 		entity.setDate(LocalDate.now());
 		entity.setPostType(PostType.SUPPORT);	
+
+		User user = securityUtils.getUsuarioLogado();
+		entity.setAuthor(user);
 		return repository.save(entity);
 	}
 
@@ -73,4 +82,6 @@ public class PostService {
 				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"))
 				.isSupport();
 	}
+	
+	
 }

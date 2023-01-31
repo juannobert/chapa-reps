@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.reps.entities.Post;
+import br.com.reps.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class PostResponse {
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate date;
+	
+	private User author;
 	
 	private List<Post> answers;
 }

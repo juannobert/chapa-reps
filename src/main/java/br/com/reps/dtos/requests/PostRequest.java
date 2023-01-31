@@ -24,12 +24,7 @@ public class PostRequest {
 	@NotEmpty
 	@NotNull
 	private String text;
-	
-	
-	/*
-	@ManyToOne
-	private User author;
-	*/
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
