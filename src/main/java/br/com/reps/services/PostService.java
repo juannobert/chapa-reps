@@ -62,6 +62,8 @@ public class PostService {
 		
 		Post answer = mapper.toModel(request);
 		answer.setDate(LocalDate.now());
+		User user = securityUtils.getUsuarioLogado();
+		answer.setAuthor(user);
 		answer = repository.save(answer);
 		
 		entity.getAnswers().add(answer);
@@ -83,5 +85,6 @@ public class PostService {
 				.isSupport();
 	}
 	
+
 	
 }
