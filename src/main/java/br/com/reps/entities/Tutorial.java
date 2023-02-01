@@ -1,6 +1,5 @@
 package br.com.reps.entities;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
