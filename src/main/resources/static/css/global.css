@@ -1,8 +1,16 @@
 .home-title{
-	font-size: 1.5rem;
-	font-weight: bold
+	font-size: .9rem;
+	font-weight: bold;
 }
 
 .active{
-	background-color: #0275d8
+	background-color: #0275d8;
+	
+	
+}
+
+@media (min-width:768px){
+	.home-title{
+	font-size: 1.5rem;
+	}
 }

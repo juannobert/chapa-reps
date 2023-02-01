@@ -1,6 +1,8 @@
 package br.com.reps.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.reps.dtos.requests.TutorialRequest;
+import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.services.TutorialService;
 import jakarta.validation.Valid;
 
@@ -20,6 +23,14 @@ public class TutorialController {
 
 	@Autowired
 	private TutorialService service;
+	
+	
+	@GetMapping
+	public ModelAndView findAll(@PageableDefault(size = 5) Pageable pageable) {
+		ModelAndView mv = new ModelAndView("tutorial/tutorials");
+		mv.addObject("posts",service.findAll(pageable));
+		return mv;
+	}
 	
 	@GetMapping("/novo")
 	public ModelAndView formTutorial() {
@@ -35,6 +46,7 @@ public class TutorialController {
 			return "tutorial/form-tutorial";
 		}
 		service.insert(request);
-		return "redirect:/tutoriais/novo";
+		attrs.addFlashAttribute("alert",new AlertMessage("Tutorial publicado com sucesso","alert-primary"));
+		return "redirect:/tutoriais";
 	}
 }

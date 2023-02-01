@@ -102,6 +102,24 @@
   <script th:src="@{/webjars/AdminLTE/dist/js/adminlte.min.js}"></script>
 
   <th:block th:replace="${scripts}"></th:block>
+  <style>
+  	.home-title{
+	font-size: .9rem;
+	font-weight: bold;
+}
+
+.active{
+	background-color: #0275d8;
+	
+	
+}
+
+@media (min-width:768px){
+	.home-title{
+	font-size: 1.5rem;
+	}
+}
+  </style>
 </body>
 
 </html>

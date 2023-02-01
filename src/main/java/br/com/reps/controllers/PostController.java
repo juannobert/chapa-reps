@@ -47,6 +47,7 @@ public class PostController {
 	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
 			RedirectAttributes attrs) {
 		service.addComents(id, request);
+		attrs.addFlashAttribute("alert",new AlertMessage("Comentario adicionado com sucesso","alert-primary"));
 		return "redirect:/post/ouvidoria";
 	}
 
