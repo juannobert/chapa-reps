@@ -35,12 +35,13 @@ public class TutorialService {
 	
 	@Transactional
 	public Tutorial insert(TutorialRequest request) {
+		String youtubeLink = request.getUrl();
+		String embedLink = youtubeLink.replace("youtu.be/", "www.youtube.com/embed/");
 		Tutorial entity = mapper.toModel(request);
 		User author = securityUtils.getUsuarioLogado(); 
 		entity.setDate(new Date());
 		entity.setAuthor(author);
-		String youtubeLink = entity.getUrl();
-		String embedLink = youtubeLink.replace("youtu.be/", "www.youtube.com/embed/");
+		
 		entity.setUrl(embedLink);
 		
 		return repository.save(entity);
