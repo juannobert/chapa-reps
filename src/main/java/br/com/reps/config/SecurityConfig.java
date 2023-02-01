@@ -60,15 +60,15 @@ public class SecurityConfig {
         	.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
         	.logoutSuccessUrl("/auth/login")
         	
-        	.and()
+       
         	
+        	.and()
         	.csrf().disable();
+        
+        
 
         return http.build();
 	}
 	
-	@Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/resources/**","/h2-console/**");
-    }
+	
 }
