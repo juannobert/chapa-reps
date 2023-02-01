@@ -20,5 +20,5 @@ public class TutorialRequest {
 	@NotBlank
 	@NotNull
 	@URL
-	private String Url;
+	private String url;
 }

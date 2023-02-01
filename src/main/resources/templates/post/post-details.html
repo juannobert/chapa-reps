@@ -41,10 +41,10 @@
 				                            </div> 
 				                        	<div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
 				                        </div>
-			                		 </div>
 			                		</form>
+			                		 </div>
 		           		 		</div>
-		           		 		<h4>Respostas:</h4>
+		           		 		<h4 th:if="${form != null}" >Respostas:</h4>
 		           		 		<div class="card shadow-sm bg-white rounded" th:each="comentario : ${post.answers}" style="margin-top: 20px;">
 			            	 	<div class="card-body">
 			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">

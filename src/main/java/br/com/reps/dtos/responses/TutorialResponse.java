@@ -1,6 +1,5 @@
 package br.com.reps.dtos.responses;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import br.com.reps.entities.User;

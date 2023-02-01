@@ -1,6 +1,6 @@
 package br.com.reps.services;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +38,7 @@ public class PostService {
 	
 	public Post insertNotice(PostRequest request) {
 		Post entity = mapper.toModel(request);
-		entity.setDate(LocalDate.now());
+		entity.setDate(new Date());
 		
 		User user = securityUtils.getUsuarioLogado();
 		entity.setAuthor(user);
@@ -47,7 +47,7 @@ public class PostService {
 	
 	public Post insertSupport(SupportRequest request) {
 		Post entity = mapper.toModel(request);
-		entity.setDate(LocalDate.now());
+		entity.setDate(new Date());
 		entity.setPostType(PostType.SUPPORT);	
 
 		User user = securityUtils.getUsuarioLogado();
@@ -61,7 +61,7 @@ public class PostService {
 					.orElseThrow(() -> new EntityNotFoundException("Comentário não encontrado"));
 		
 		Post answer = mapper.toModel(request);
-		answer.setDate(LocalDate.now());
+		answer.setDate(new Date());
 		User user = securityUtils.getUsuarioLogado();
 		answer.setAuthor(user);
 		answer = repository.save(answer);

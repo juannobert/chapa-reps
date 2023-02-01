@@ -1,6 +1,7 @@
 package br.com.reps.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +32,7 @@ public class Tutorial {
 	private String url;
 	
 	@Column(nullable = false)
-	private LocalDateTime date;
+	private Date date;
 	
 	@ManyToOne
 	private User author;

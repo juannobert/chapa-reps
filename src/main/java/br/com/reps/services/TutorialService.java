@@ -1,7 +1,6 @@
 package br.com.reps.services;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +37,7 @@ public class TutorialService {
 	public Tutorial insert(TutorialRequest request) {
 		Tutorial entity = mapper.toModel(request);
 		User author = securityUtils.getUsuarioLogado(); 
-		entity.setDate(LocalDateTime.now());
+		entity.setDate(new Date());
 		entity.setAuthor(author);
 		String youtubeLink = entity.getUrl();
 		String embedLink = youtubeLink.replace("youtu.be/", "www.youtube.com/embed/");

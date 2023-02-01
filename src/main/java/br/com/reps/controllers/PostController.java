@@ -21,7 +21,6 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
