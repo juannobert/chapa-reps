@@ -40,7 +40,8 @@ public class SecurityConfig {
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().
-        	 requestMatchers("/auth/**").permitAll() 
+        
+        	requestMatchers("/auth/cadastro").anonymous()
         	.requestMatchers(HttpMethod.POST,"/post/ouvidoria/**").hasAnyAuthority(UserRole.ALUNO.toString())
         	.requestMatchers(HttpMethod.POST,"/post/**").hasAnyAuthority(UserRole.GREMISTA.toString())
         	.requestMatchers(HttpMethod.GET,"/post/**").authenticated()
@@ -50,7 +51,7 @@ public class SecurityConfig {
         	
         	.formLogin()
         	.loginPage("/auth/login")
-        	.defaultSuccessUrl("/home")
+        	.defaultSuccessUrl("/home",true)
         	.usernameParameter("email")
         	.passwordParameter("password")
         	.permitAll()

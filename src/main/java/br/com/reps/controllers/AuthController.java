@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.entities.enums.Function;
 import br.com.reps.services.UserService;
+import br.com.reps.services.exceptions.ValidationException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -22,29 +23,34 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 	
+
 	@GetMapping("/login")
 	public String login() {
 		return "auth/login";
 	}
-	
+
 	@GetMapping("/cadastro")
 	public ModelAndView cadastro() {
 		ModelAndView mv = new ModelAndView("auth/register");
 		mv.addObject("form", new UserDefaultRequest());
 		return mv;
 	}
-	
+
 	@PostMapping("/cadastro")
-	public String cadastro(@Valid @ModelAttribute("form") UserDefaultRequest request,BindingResult result,RedirectAttributes attrs) {
-		if(result.hasErrors()){
-			System.out.println("Error: " + result.getFieldError().getField());
+	public String cadastro(@Valid @ModelAttribute("form") UserDefaultRequest request, BindingResult result,
+			RedirectAttributes attrs) {
+		try {
+			if (result.hasErrors()) {
+				return "auth/register";
+			}
+			userService.insert(request);
+			return "redirect:/auth/login";
+		} catch (ValidationException e) {
+			result.addError(e.getFieldError());
 			return "auth/register";
 		}
-		userService.insert(request);
-		System.out.println("insert");
-		return "auth/login";
 	}
-	
+
 	@ModelAttribute("functions")
 	public Function[] getFunctions() {
 		return Function.values();
