@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,8 +39,7 @@ public class SecurityConfig {
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().
-        	requestMatchers(PathRequest.toStaticResources().atCommonLocations().toString()).permitAll()
-        	.requestMatchers("/auth/**").permitAll() 
+        	 requestMatchers("/auth/**").permitAll() 
         	.requestMatchers(HttpMethod.POST,"/post/ouvidoria/**").hasAnyAuthority(UserRole.ALUNO.toString())
         	.requestMatchers(HttpMethod.POST,"/post/**").hasAnyAuthority(UserRole.GREMISTA.toString())
         	.requestMatchers(HttpMethod.GET,"/post/**").authenticated()
@@ -72,11 +69,16 @@ public class SecurityConfig {
 
         return http.build();
 	}
-	/*
+	
 	@Bean
     WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/**");
+        return (web) -> web.ignoring().requestMatchers("/css/**")
+                .requestMatchers("/js/**")
+                .requestMatchers("/images/**")
+                .requestMatchers("/vendor/**")
+                .requestMatchers("/fonts/**")
+                .requestMatchers("/resources/**");
     }
-	*/
+	
 	
 }
