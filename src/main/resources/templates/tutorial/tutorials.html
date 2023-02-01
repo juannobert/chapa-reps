@@ -24,7 +24,7 @@
 			                			<br>
 			                			
 			                			<i class="bi bi-calendar-event"></i>
-			               				<span th:text="${post.date}"></span>
+			               				<span th:text="${#dates.format(post.date, 'dd/MM/yyyy')}"></span>
 			               				
 			                		</p>
 			               			  <h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}">Título</span></h4>

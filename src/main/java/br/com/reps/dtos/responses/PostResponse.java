@@ -1,6 +1,7 @@
 package br.com.reps.dtos.responses;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +23,7 @@ public class PostResponse {
 	private String text;
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate date;
+	private Date date;
 	
 	private User author;
 	

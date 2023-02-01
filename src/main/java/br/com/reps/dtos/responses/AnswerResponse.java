@@ -1,6 +1,7 @@
 package br.com.reps.dtos.responses;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +13,5 @@ public class AnswerResponse {
 
 	private String text;
 	
-	private LocalDate date;
+	private Date date;
 }

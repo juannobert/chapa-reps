@@ -1,6 +1,7 @@
 package br.com.reps.dtos.responses;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import br.com.reps.entities.User;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,5 @@ public class TutorialResponse {
 	
 	private User author;
 	
-	private LocalDateTime date;
+	private Date date;
 }

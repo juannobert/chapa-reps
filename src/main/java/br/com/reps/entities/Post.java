@@ -2,6 +2,7 @@ package br.com.reps.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,7 +41,7 @@ public class Post {
 	private String text;
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	private LocalDate date;
+	private Date date;
 	
 	
 	@ManyToOne
