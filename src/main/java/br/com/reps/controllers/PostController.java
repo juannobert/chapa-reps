@@ -41,7 +41,7 @@ public class PostController {
 		
 		return mv;
 	}
-	
+	/*
 	@PostMapping("/{id}")
 	public String findPostById(@PathVariable Long id,@Valid @ModelAttribute("form") AnswerRequest request,BindingResult result,
 			RedirectAttributes attrs) {
@@ -49,7 +49,7 @@ public class PostController {
 		attrs.addFlashAttribute("alert",new AlertMessage("Comentario adicionado com sucesso","alert-primary"));
 		return "redirect:/post/ouvidoria";
 	}
-
+*/
 
 	/* Publicações */
 	@GetMapping("/avisos")
@@ -110,7 +110,7 @@ public class PostController {
 		
 	}
 	
-	
+	/*
 	@PostMapping("/ouvidoria/novo")
 	public String supportForm(@Valid @ModelAttribute("form") SupportRequest request,BindingResult result,RedirectAttributes attrs) {
 		if(result.hasErrors())
@@ -120,6 +120,7 @@ public class PostController {
 		
 		return "redirect:/post/ouvidoria";
 	}
+	*/
 	
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {
