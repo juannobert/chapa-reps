@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,~{::scripts})}">>
 <head>
-    <title><span th:text="${post.title}"></span></title>
+    <th:block th:fragment="title" th:text="${post.title}">Publicação</th:block>
 </head>
 <body>
 	<main>

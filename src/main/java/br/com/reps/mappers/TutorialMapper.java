@@ -1,19 +1,29 @@
 package br.com.reps.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import br.com.reps.dtos.requests.TutorialRequest;
 import br.com.reps.dtos.responses.TutorialResponse;
 import br.com.reps.entities.Tutorial;
 
-@Mapper(componentModel = "spring")
-public interface TutorialMapper {
+@Component
+public class TutorialMapper {
 
-	TutorialMapper INSTANCE = Mappers.getMapper(TutorialMapper.class);
 	
-	Tutorial toModel(TutorialRequest request);
+	public Tutorial toModel(TutorialRequest request) {
+		Tutorial tutorial = new Tutorial();
+		tutorial.setTitle(request.getTitle());
+		tutorial.setUrl(request.getUrl());
+		return tutorial;
+	}
 	
-	TutorialResponse toResponse(Tutorial model);
+	public TutorialResponse toResponse(Tutorial model) {
+		TutorialResponse response = new TutorialResponse();
+		response.setTitle(model.getTitle());
+		response.setUrl(model.getUrl());
+		response.setDate(model.getDate());
+		response.setAuthor(model.getAuthor());
+		return response;
+	}
 	
 }
