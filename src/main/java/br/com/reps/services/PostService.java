@@ -39,6 +39,7 @@ public class PostService {
 	public Post insertNotice(PostRequest request) {
 		Post entity = mapper.toModel(request);
 		entity.setDate(new Date());
+		entity.setText(request.getText());
 		
 		User user = securityUtils.getUsuarioLogado();
 		entity.setAuthor(user);
