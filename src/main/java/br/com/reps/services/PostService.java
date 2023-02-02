@@ -71,6 +71,10 @@ public class PostService {
 		return repository.save(entity);		
 	}
 	
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
 				.stream()

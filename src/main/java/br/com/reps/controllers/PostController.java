@@ -21,6 +21,7 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -121,6 +122,12 @@ public class PostController {
 		return "redirect:/post/ouvidoria";
 	}
 	
+	@GetMapping("/excluir/{id}")
+	public String deleteById(@PathVariable Long id,HttpServletRequest request) {
+		service.delete(id);
+		return "redirect:/" + request.getHeader("Referer").substring(22);
+
+	}
 	
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {

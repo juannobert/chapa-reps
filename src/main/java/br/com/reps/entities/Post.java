@@ -47,7 +47,7 @@ public class Post {
 	private User author;
 	
 	
-	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Post> answers = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
