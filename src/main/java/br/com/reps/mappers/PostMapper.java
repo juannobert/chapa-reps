@@ -2,7 +2,9 @@ package br.com.reps.mappers;
 
 import org.springframework.stereotype.Component;
 
+import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
+import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 
@@ -12,6 +14,7 @@ public class PostMapper {
 	
 	public PostResponse toResponse(Post post) {
 		PostResponse response = new PostResponse();
+		response.setId(post.getId());
 		response.setText(post.getText());
 		response.setDate(post.getDate());
 		response.setAuthor(post.getAuthor());
@@ -28,8 +31,18 @@ public class PostMapper {
 		return post;
 	}
 	
-	//Post toModel(AnswerRequest request);
+	public Post toModel(AnswerRequest request) {
+		Post post = new Post();
+		post.setText(request.getText());
+		return post;
+		
+	}
 	
-	//Post toModel(SupportRequest request);
+	public Post toModel(SupportRequest request) {
+		Post post = new Post();
+		post.setTitle(request.getTitle());
+		post.setText(request.getText());
+		return post;
+	}
 	
 }

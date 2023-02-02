@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
+import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.User;
@@ -42,7 +44,7 @@ public class PostService {
 		entity.setAuthor(user);
 		return repository.save(entity);
 	}
-	/*
+	
 	public Post insertSupport(SupportRequest request) {
 		Post entity = mapper.toModel(request);
 		entity.setDate(new Date());
@@ -68,7 +70,7 @@ public class PostService {
 		
 		return repository.save(entity);		
 	}
-	*/
+	
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
 				.stream()
