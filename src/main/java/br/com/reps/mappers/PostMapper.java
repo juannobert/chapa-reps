@@ -1,25 +1,35 @@
 package br.com.reps.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
-import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 
-@Mapper(componentModel = "spring")
-public interface PostMapper {
+@Component
+public class PostMapper {
 	
-	PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 	
-	PostResponse toResponse(Post post);
+	public PostResponse toResponse(Post post) {
+		PostResponse response = new PostResponse();
+		response.setText(post.getText());
+		response.setDate(post.getDate());
+		response.setAuthor(post.getAuthor());
+		response.setTitle(post.getTitle());
+		response.setAnswers(post.getAnswers());
+		return response;
+	}
 			
-	Post toModel(PostRequest request);
+	public Post toModel(PostRequest request) {
+		Post post = new Post();
+		post.setTitle(request.getTitle());
+		post.setText(request.getText());
+		post.setPostType(request.getPostType());
+		return post;
+	}
 	
-	Post toModel(AnswerRequest request);
+	//Post toModel(AnswerRequest request);
 	
-	Post toModel(SupportRequest request);
+	//Post toModel(SupportRequest request);
 	
 }
