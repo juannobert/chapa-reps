@@ -32,9 +32,11 @@ public class UserService implements UserDetailsService{
 	
 	public User insert(UserRequest request) {
 		boolean isAdmin = request instanceof UserAdminRequest ? true : false;
+		
 		validarConfirmacaoDeSenha(request);
 		User entity = isAdmin ? mapper.toAdminModel((UserAdminRequest)request) 
 				: mapper.toDefaultModel((UserDefaultRequest)request);
+		entity.setPassword(request.getPassword());
 		validateEmail(entity);
 		UserRole role = isAdmin ? UserRole.GREMISTA  : UserRole.ALUNO;
 		entity.setRole(role);
