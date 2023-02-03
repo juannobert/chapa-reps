@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TutorialResponse {
 
+	private Long id;
+	
 	private String title;
 	
 	private String Url;

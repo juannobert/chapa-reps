@@ -19,6 +19,7 @@ public class TutorialMapper {
 	
 	public TutorialResponse toResponse(Tutorial model) {
 		TutorialResponse response = new TutorialResponse();
+		response.setId(model.getId());
 		response.setTitle(model.getTitle());
 		response.setUrl(model.getUrl());
 		response.setDate(model.getDate());

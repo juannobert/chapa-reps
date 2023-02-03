@@ -123,8 +123,9 @@ public class PostController {
 	}
 	
 	@GetMapping("/excluir/{id}")
-	public String deleteById(@PathVariable Long id,HttpServletRequest request) {
+	public String deleteById(@PathVariable Long id,HttpServletRequest request,RedirectAttributes attrs) {
 		service.delete(id);
+		attrs.addFlashAttribute("alert",new AlertMessage("Publicação excluida com sucesso","alert-primary"));
 		return "redirect:/" + request.getHeader("Referer").substring(22);
 
 	}

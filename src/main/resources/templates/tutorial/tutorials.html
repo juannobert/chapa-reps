@@ -1,52 +1,59 @@
 <!DOCTYPE html>
-<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},~{::styles},_ )}">>
+<html th:replace="~{adminlte3 :: layout (~{::title},~{::main},~{::styles},_ )}">>
+
 <head>
-   <th:block th:fragment="title">Tutoriais</th:block>
+	<th:block th:fragment="title">Tutoriais</th:block>
 </head>
+
 <body>
 	<main>
-         <div class="row">
-            <div class="col">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <div class="card-title home-title">Tutoriais</span></div>
-                        <div class="card-tools">
-                        	<a th:href="@{/tutoriais/novo}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('GREMISTA')">Novo tutorial</a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
-			            	 	<div class="card-body">
-			            	 		<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
-										<div>
-											<a class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-											<a class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-										</div>
+		<div class="row">
+			<div class="col">
+				<div class="card card-success">
+					<div class="card-header">
+						<div class="card-title home-title">Tutoriais</span></div>
+						<div class="card-tools">
+							<a th:href="@{/tutoriais/novo}" class="btn btn-sm btn-primary"
+								sec:authorize="hasAuthority('GREMISTA')">Novo tutorial</a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
+							th:each="post : ${posts}">
+							<div class="card-body">
+								<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
+									<div>
+										<a class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+										<a th:href="@{/tutoriais/excluir/{id}(id=${post.id})}"
+											class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
 									</div>
-			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
-			                			
-			                    		<i class="bi bi-person"></i>
-			                			<span th:text="${post.author.name}"></span>
-			                			<br>
-			                			
-			                			<i class="bi bi-calendar-event"></i>
-			               				<span th:text="${#dates.format(post.date, 'dd/MM/yyyy')}"></span>
-			               				
-			                		</p>
-			               			  <h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.title}">Título</span></h4>
-			               			  <div class="responsive-iframe">
-			               			  <iframe th:src="${post.url}"></iframe>
-			               			  </div>
-			           		   </div>
-			           		    
-        				</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</main>
+								</div>
+								<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
 
- <th:block th:fragment="styles">
+									<i class="bi bi-person"></i>
+									<span th:text="${post.author.name}"></span>
+									<br>
+
+									<i class="bi bi-calendar-event"></i>
+									<span th:text="${#dates.format(post.date, 'dd/MM/yyyy')}"></span>
+
+								</p>
+								<h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span
+										th:text="${post.title}">Título</span></h4>
+								<div class="responsive-iframe">
+									<iframe th:src="${post.url}"></iframe>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+<th:block th:fragment="styles">
 	    <style>
 	    
 		    h4.card-title{
@@ -68,6 +75,4 @@
 		  }
 	    </style>
 	</th:block>
-     
-</body>
 </html>
