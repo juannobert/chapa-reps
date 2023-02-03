@@ -56,6 +56,6 @@ public class TutorialController {
 	public String delete(@PathVariable Long id,HttpServletRequest request,RedirectAttributes attrs) {
 		service.delete(id);
 		attrs.addFlashAttribute("alert",new AlertMessage("Tutorial excluido com sucesso","alert-primary"));
-		return "redirect:/" + request.getHeader("Referer").substring(22);
+		return "redirect:/tutoriais";
 	}
 }

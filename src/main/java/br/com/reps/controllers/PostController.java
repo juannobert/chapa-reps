@@ -126,7 +126,10 @@ public class PostController {
 	public String deleteById(@PathVariable Long id,HttpServletRequest request,RedirectAttributes attrs) {
 		service.delete(id);
 		attrs.addFlashAttribute("alert",new AlertMessage("Publicação excluida com sucesso","alert-primary"));
-		return "redirect:/" + request.getHeader("Referer").substring(22);
+		String path = request.getHeader("Referer");
+		
+		if(path.endsWith("/avisos")) return "redirect:/post/avisos";
+		 return "redirect:/post/transparencia";
 
 	}
 	
