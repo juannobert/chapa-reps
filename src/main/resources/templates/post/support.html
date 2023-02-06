@@ -19,15 +19,15 @@
 					<div class="card-body">
 						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
 							th:each="post : ${posts}">
-							<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
-								<div>
-									<a class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-									<a th:href="@{/post/excluir/{id}(id=${post.id})}" class="btn btn-sm btn-danger"><i
-											class="bi bi-trash"></i></a>
-								</div>
-							</div>
 							<a th:href="@{/post/{id}(id=${post.id})}">
 								<div class="card-body">
+									<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
+										<div>
+											<a class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+											<a th:href="@{/post/excluir/{id}(id=${post.id})}"
+												class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+										</div>
+									</div>
 									<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
 										<i class="bi bi-person"></i>
 										<span th:text="${post.author.name}"></span>

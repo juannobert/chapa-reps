@@ -20,7 +20,6 @@
 					<div class="card-body">
 						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
 							th:each="post : ${posts}">
-							<a th:href="@{/post/{id}(id=${post.id})}">
 								<div class="card-body">
 									<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
 										<div>
@@ -28,6 +27,7 @@
 											<a th:href="@{/post/excluir/{id}(id=${post.id})}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
 										</div>
 									</div>
+									<a th:href="@{/post/{id}(id=${post.id})}" style="color: black;">
 									<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
 										<i class="bi bi-person"></i>
 										<span th:text="${post.author.name}"></span>
@@ -37,10 +37,11 @@
 									</p>
 									<h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
 										<span th:text="${post.title}">Título</span></h4>
-									<p class="card-text"><span th:utext="${#strings.abbreviate(post.text,400)} "></p>
+										<p class="card-text text-dark">
+											<span th:utext="${#strings.abbreviate(post.text,400)}"></span>
+										</p>
+									</a>
 								</div>
-							</a>
-
 						</div>
 					</div>
 				</div>
