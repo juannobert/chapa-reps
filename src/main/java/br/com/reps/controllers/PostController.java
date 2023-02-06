@@ -129,7 +129,9 @@ public class PostController {
 		String path = request.getHeader("Referer");
 		
 		if(path.endsWith("/avisos")) return "redirect:/post/avisos";
-		 return "redirect:/post/transparencia";
+		else if(path.endsWith("/transparencia")) return "redirect:/post/transparencia";
+		return "redirect:/post/ouvidoria";
+		
 
 	}
 	
