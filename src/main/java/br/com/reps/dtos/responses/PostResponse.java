@@ -7,6 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.reps.entities.Post;
 import br.com.reps.entities.User;
+import br.com.reps.entities.enums.PostType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +30,7 @@ public class PostResponse {
 	private User author;
 	
 	private List<Post> answers;
+	
+	@Enumerated(EnumType.STRING)
+	private PostType postType;
 }

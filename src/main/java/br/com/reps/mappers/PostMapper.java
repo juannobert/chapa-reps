@@ -20,6 +20,7 @@ public class PostMapper {
 		response.setAuthor(post.getAuthor());
 		response.setTitle(post.getTitle());
 		response.setAnswers(post.getAnswers());
+		response.setPostType(post.getPostType());
 		return response;
 	}
 			

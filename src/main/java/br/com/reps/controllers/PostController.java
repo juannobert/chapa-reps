@@ -78,6 +78,7 @@ public class PostController {
 	public ModelAndView postForm() {
 		ModelAndView mv = new ModelAndView("post/form-post");
 		mv.addObject("form", new PostRequest());
+		mv.addObject("alter", false);
 		return mv; 
 		
 	}
@@ -131,10 +132,28 @@ public class PostController {
 		if(path.endsWith("/avisos")) return "redirect:/post/avisos";
 		else if(path.endsWith("/transparencia")) return "redirect:/post/transparencia";
 		return "redirect:/post/ouvidoria";
-		
-
 	}
 	
+	@GetMapping("/alterar/{id}")
+	public ModelAndView alterar(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("post/form-post");
+		mv.addObject("form", service.findById(id));
+		mv.addObject("alter", true);
+		
+		return mv;
+	}
+	
+	@PostMapping("/alterar/{id}")
+	public String alterar(@PathVariable Long id,@Valid @ModelAttribute("form") PostRequest request,BindingResult result,RedirectAttributes attrs) {
+		if(result.hasErrors())
+			return "post/form-post";
+		service.alter(id, request);
+		attrs.addFlashAttribute("alert",new AlertMessage("Postagem alterada com sucesso","alert-primary"));
+		if(request.getPostType().equals(PostType.NOTICE))
+			return "redirect:/post/avisos";
+		
+		return "redirect:/post/transparencia";
+	}
 	@ModelAttribute("postTypes")
 	public PostType[] getPostType() {
 		return PostType.values();

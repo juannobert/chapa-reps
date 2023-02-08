@@ -2,6 +2,7 @@ package br.com.reps.services;
 
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -75,6 +76,20 @@ public class PostService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	public Post alter(Long id,PostRequest postRequest) {
+		Post model = repository.findById(id).get();
+		updatePost(model,postRequest);
+		model.setId(id);
+		return repository.save(model);
+	}
+	private void updatePost(Post model, PostRequest postRequest) {
+		model.setText(postRequest.getText());
+		model.setTitle(postRequest.getTitle());
+		model.setPostType(postRequest.getPostType());
+		
+	}
+
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
 				.stream()
