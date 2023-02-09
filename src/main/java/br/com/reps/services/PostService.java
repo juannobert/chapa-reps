@@ -2,13 +2,13 @@ package br.com.reps.services;
 
 import java.util.Date;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.reps.dtos.requests.AnswerRequest;
+import br.com.reps.dtos.requests.PostDTO;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
@@ -77,16 +77,19 @@ public class PostService {
 		repository.deleteById(id);
 	}
 	
-	public Post alter(Long id,PostRequest postRequest) {
-		Post model = repository.findById(id).get();
-		updatePost(model,postRequest);
+	public Post alter(Long id,PostDTO dto) {
+		Post model = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"));
+		updatePost(model, dto instanceof PostRequest ? (PostRequest)dto  : dto);
 		model.setId(id);
 		return repository.save(model);
 	}
-	private void updatePost(Post model, PostRequest postRequest) {
+	
+	private void updatePost(Post model, PostDTO postRequest) {
 		model.setText(postRequest.getText());
 		model.setTitle(postRequest.getTitle());
-		model.setPostType(postRequest.getPostType());
+		
+		if(postRequest instanceof PostRequest)
+			model.setPostType(((PostRequest) postRequest).getPostType());
 		
 	}
 
