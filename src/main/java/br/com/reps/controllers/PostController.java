@@ -23,6 +23,7 @@ import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.services.PostService;
+import br.com.reps.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -32,6 +33,9 @@ public class PostController {
 
 	@Autowired
 	private PostService service;
+	
+	@Autowired
+	private SecurityUtils securityUtils;
 
 	@GetMapping("/{id}")
 	public ModelAndView findPostById(@PathVariable Long id) {
@@ -100,6 +104,9 @@ public class PostController {
 	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/support");
 		mv.addObject("posts", service.findAllPosts(pageable, PostType.SUPPORT));
+		Long userId = securityUtils.getUsuarioLogado().getId();
+		mv.addObject("userId", userId);
+		mv.addObject("isGremista", securityUtils.isGremista());
 		return mv;
 	}
 

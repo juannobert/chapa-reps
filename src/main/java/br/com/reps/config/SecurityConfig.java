@@ -43,7 +43,8 @@ public class SecurityConfig {
         
         	requestMatchers("/auth/cadastro").anonymous()
         	.requestMatchers(HttpMethod.POST,"/post/ouvidoria/**").hasAnyAuthority(UserRole.ALUNO.toString())
-        	.requestMatchers(HttpMethod.POST,"/post/**").hasAnyAuthority(UserRole.GREMISTA.toString())
+        	.requestMatchers(HttpMethod.POST,"/post/alterar/**").authenticated()
+        	.requestMatchers(HttpMethod.POST,"/post/publi/novo").hasAnyAuthority(UserRole.GREMISTA.toString())
         	.requestMatchers(HttpMethod.GET,"/post/**").authenticated()
         	.anyRequest().authenticated()
         	

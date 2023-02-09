@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import br.com.reps.entities.User;
+import br.com.reps.entities.enums.UserRole;
 import br.com.reps.repositories.UserRepository;
 import br.com.reps.services.exceptions.EntityNotFoundException;
 
@@ -28,5 +29,9 @@ public class SecurityUtils {
 		String msg = "Usuário com email %s não encontrado";
 		return userRepository.findByEmail(email)
 				.orElseThrow(() -> new EntityNotFoundException(msg));
+	}
+	
+	public boolean isGremista() {
+		return getUsuarioLogado().getRole().equals(UserRole.GREMISTA);
 	}
 }

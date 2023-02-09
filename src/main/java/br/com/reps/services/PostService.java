@@ -92,6 +92,7 @@ public class PostService {
 			model.setPostType(((PostRequest) postRequest).getPostType());
 		
 	}
+	
 
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
@@ -106,6 +107,7 @@ public class PostService {
 				.orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"))
 				.isSupport();
 	}
+	
 	
 
 	
