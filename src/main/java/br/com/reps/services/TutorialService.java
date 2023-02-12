@@ -13,6 +13,7 @@ import br.com.reps.entities.Tutorial;
 import br.com.reps.entities.User;
 import br.com.reps.mappers.TutorialMapper;
 import br.com.reps.repositories.TutorialRepository;
+import br.com.reps.services.exceptions.EntityNotFoundException;
 import br.com.reps.utils.SecurityUtils;
 import jakarta.transaction.Transactional;
 
@@ -35,8 +36,7 @@ public class TutorialService {
 	
 	@Transactional
 	public Tutorial insert(TutorialRequest request) {
-		String youtubeLink = request.getUrl();
-		String embedLink = youtubeLink.replace("youtu.be/", "www.youtube.com/embed/");
+		String embedLink = toEmbedLink(request.getUrl());
 		Tutorial entity = mapper.toModel(request);
 		User author = securityUtils.getUsuarioLogado(); 
 		entity.setDate(new Date());
@@ -47,7 +47,28 @@ public class TutorialService {
 		return repository.save(entity);
 	}
 	
+	public TutorialResponse findByid(Long id) {
+		return repository.findById(id)
+				.map(mapper::toResponse)
+				.orElseThrow(() -> new EntityNotFoundException("Tutorial não encontrado"));
+	}
+	
+	public Tutorial alter(Long id,TutorialRequest request) {
+		Tutorial model = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tutorial não encontrado"));
+		model.setTitle(request.getTitle());
+		model.setUrl(toEmbedLink(request.getUrl()));
+		return repository.save(model);
+	}
+	
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+	
+	private String toEmbedLink(String link) {
+		return link.replace("youtu.be/", "www.youtube.com/embed/");
+	}
+	
+	public String toLink(String embedLink) {
+		return embedLink.replace("www.youtube.com/embed/","youtu.be/");
 	}
 }
