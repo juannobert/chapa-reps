@@ -27,7 +27,7 @@
                                 <tr th:each="user : ${users}">
                                     <td th:text="${user.name}"></td>
                                     <td th:text="${user.email}"></td>
-                                    <td th:text="${isUser ? user.function : user.officie}"></td>
+                                    <td th:text="${isUser ? user.function : user.officie.nome}"></td>
                                     
                                     <td>
                                         <a 
