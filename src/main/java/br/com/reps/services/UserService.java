@@ -1,6 +1,9 @@
 package br.com.reps.services;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +14,7 @@ import org.springframework.validation.FieldError;
 import br.com.reps.dtos.requests.UserAdminRequest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
+import br.com.reps.dtos.responses.UserResponse;
 import br.com.reps.entities.User;
 import br.com.reps.entities.enums.UserRole;
 import br.com.reps.mappers.UserMapper;
@@ -43,6 +47,11 @@ public class UserService implements UserDetailsService{
 		String password = passwordEncoder.encode(entity.getPassword());
 		entity.setPassword(password);
 		return repository.save(entity);
+	}
+	
+	public Page<UserResponse> findAll(Pageable pageable,UserRole role) {
+		return repository.findAll(pageable,role)
+				.map(mapper::toResponse);
 	}
 	
 	private void validateEmail(User user) {

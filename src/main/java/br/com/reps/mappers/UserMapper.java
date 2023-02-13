@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import br.com.reps.dtos.requests.UserAdminRequest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
+import br.com.reps.dtos.responses.UserResponse;
 import br.com.reps.entities.User;
 
 @Component
@@ -16,6 +17,16 @@ public class UserMapper {
 		User user = comonsUser(request);
 		user.setOfficie(request.getOfficie());
 		return user;
+	}
+	
+	public UserResponse toResponse(User user) {
+		UserResponse response = new UserResponse();
+		response.setId(user.getId());
+		response.setEmail(user.getEmail());
+		response.setName(user.getName());
+		response.setFunction(user.getFunction());
+		response.setOfficie(user.getOfficie());
+		return response;
 	}
 	
 	public User toDefaultModel(UserDefaultRequest request) {
