@@ -49,6 +49,10 @@ public class UserService implements UserDetailsService{
 		return repository.save(entity);
 	}
 	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
 	public Page<UserResponse> findAll(Pageable pageable,UserRole role) {
 		return repository.findAll(pageable,role)
 				.map(mapper::toResponse);

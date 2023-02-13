@@ -67,6 +67,9 @@ public class AdminController {
 		return mv;
 	}
 	
+	@GetMapping("/delete-user/{id}")
+	
+	
 	
 	
 	@ModelAttribute("positions")

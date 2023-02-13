@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
 <head>
-    <title>Lista de Usuários</title>
+    <th:block th:fragment="title">Listagem de <th:block th:text="${isUser ? 'usuários' : 'gremistas'}"></th:block> </th:block>
 </head>
 <body>
 	<main>
@@ -9,10 +9,11 @@
             <div class="col">
                 <div class="card card-success">
                     <div class="card-header">
-                        <div class="card-title">Lista de Usuários</div>
+                        <div class="card-title home-title">Listagem de <span th:text="${isUser ? 'usuários' : 'gremistas'}"></span></div>
                         
                     </div>
                     <div class="card-body">
+                    <div class="table-responsive">
 						<table class="table table-condensed">
                             <thead>
                                 <tr>
@@ -40,6 +41,7 @@
                             </tbody>
 
                         </table>
+                    </div>
                     </div>
                 </div>
             </div>
