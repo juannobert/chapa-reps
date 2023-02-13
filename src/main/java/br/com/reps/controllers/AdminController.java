@@ -21,13 +21,13 @@ import br.com.reps.services.exceptions.ValidationException;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/usuario")
-public class UserController {
+@RequestMapping("/admin")
+public class AdminController {
 
 	@Autowired
 	private UserService service;
 	
-	@GetMapping("/admin/novo")
+	@GetMapping("/novo")
 	public ModelAndView userForm() {
 		ModelAndView mv = new ModelAndView("user/form-user");
 		mv.addObject("form", new UserAdminRequest());
@@ -35,7 +35,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/admin/novo")
+	@PostMapping("/novo")
 	public String supportForm(@Valid @ModelAttribute("form") UserAdminRequest request,BindingResult result,RedirectAttributes attrs) {
 		if(result.hasErrors())
 			return "user/form-user";
@@ -49,11 +49,21 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping("/admin/usuarios")
+	@GetMapping("/usuarios")
 	public ModelAndView allUsers(@PageableDefault(size = 10) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("user/list");
 		mv.addObject("users", service.findAll(pageable, UserRole.ALUNO));
+		mv.addObject("isUser", true);
 		
+		return mv;
+	}
+	
+	@GetMapping("/gremistas")
+	public ModelAndView allGremistas(@PageableDefault(size = 10) Pageable pageable) {
+		ModelAndView mv = new ModelAndView("user/list");
+		mv.addObject("users", service.findAll(pageable, UserRole.GREMISTA));
+		mv.addObject("isUser", false);
+
 		return mv;
 	}
 	
