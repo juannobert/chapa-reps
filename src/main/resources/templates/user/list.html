@@ -31,6 +31,7 @@
                                     
                                     <td>
                                         <a 
+                                        th:href="@{/admin/deletar-usuario/{id}(id=${user.id})}"
                                         class="btn btn-sm btn-danger"
                                         onclick="return confirm('Tem certeza que deseja excluir esse usuário?')"
                                         >Excluir</a>

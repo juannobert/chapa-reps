@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,7 @@ import br.com.reps.entities.enums.Officie;
 import br.com.reps.entities.enums.UserRole;
 import br.com.reps.services.UserService;
 import br.com.reps.services.exceptions.ValidationException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -67,7 +69,15 @@ public class AdminController {
 		return mv;
 	}
 	
-	@GetMapping("/delete-user/{id}")
+	@GetMapping("/deletar-usuario/{id}")
+	public String delete(@PathVariable Long id,HttpServletRequest request,RedirectAttributes attrs) {
+		service.delete(id);
+		attrs.addFlashAttribute("alert",new AlertMessage("Usuário removido com sucesso","alert-primary"));
+		String path = request.getHeader("Referer");
+		if(path.endsWith("/usuarios"))
+			return "redirect:/admin/usuarios";
+		return "redirect:/admin/gremistas";
+	}
 	
 	
 	
