@@ -38,6 +38,10 @@
 					<div class="alert alert-danger" th:if="${param.error != null}">
         				<span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
       				</div>
+      				
+      				<div class="alert" th:if="${alert != null}" th:classappend="${alert.cssClass}">
+        				<span th:text="${alert.message}"></span>
+      				</div>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
@@ -64,7 +68,7 @@
 						<span class="txt1">
 							Esqueceu sua
 						</span>
-						<a class="txt2" href="#">
+						<a class="txt2" th:href="@{/auth/esqueci-a-senha}">
 							Senha?
 						</a>
 					</div>

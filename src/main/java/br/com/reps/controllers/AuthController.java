@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.reps.dtos.requests.CodeRequest;
 import br.com.reps.dtos.requests.ForgetPasswordRequest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
+import br.com.reps.dtos.responses.AlertMessage;
+import br.com.reps.dtos.responses.AlterPasswordRequest;
 import br.com.reps.entities.enums.Function;
 import br.com.reps.services.UserService;
 import br.com.reps.services.exceptions.ValidationException;
@@ -69,6 +71,7 @@ public class AuthController {
 			return "auth/forget-password";
 		String code = userService.recoveryCode(request);
 		session.setAttribute("code", code);
+		session.setAttribute("email", request.getEmail());
 		
 		return "redirect:/auth/verificar-codigo";
 	}
@@ -89,13 +92,38 @@ public class AuthController {
 		String codeSession = (String) session.getAttribute("code");
 		String codeRequest = request.getEmailCode();
 		if(codeSession.equals(codeRequest)) {
-			mv.setViewName("redirect:/auth/login");
+			mv.setViewName("redirect:/auth/alterar-senha");
 			return mv;
 		}
-		
+		//try catch e atualizar link
 		mv.setViewName("auth/code-verification");
 		mv.addObject("isValid", false);
 		return mv;
+	}
+	
+	@GetMapping("/alterar-senha")
+	public ModelAndView alterPassword() {
+		ModelAndView mv = new ModelAndView("auth/alter-password");
+		mv.addObject("form", new AlterPasswordRequest());
+		
+		return mv;
+	}
+	
+	@PostMapping("/alterar-senha")
+	public String alterPassword(@Valid @ModelAttribute("form") AlterPasswordRequest request, BindingResult result,RedirectAttributes attrs,
+			HttpSession session) {
+		if (result.hasErrors()) 
+			return "auth/alter-password";
+		try{
+		String email = (String) session.getAttribute("email");
+		userService.alterPassword(request,email);
+		attrs.addFlashAttribute("alert", new AlertMessage("Senha alterada com sucesso", "alert-success"));
+		return "redirect:/auth/login";
+	} catch (ValidationException e) {
+		result.addError(e.getFieldError());
+		return "auth/alter-password";
+	}
+		
 	}
 	
 

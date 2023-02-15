@@ -16,17 +16,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
 import br.com.reps.dtos.requests.ForgetPasswordRequest;
+import br.com.reps.dtos.requests.IUserRequest;
 import br.com.reps.dtos.requests.UserAdminRequest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
+import br.com.reps.dtos.responses.AlterPasswordRequest;
 import br.com.reps.dtos.responses.EmailParams;
 import br.com.reps.dtos.responses.UserResponse;
 import br.com.reps.entities.User;
 import br.com.reps.entities.enums.UserRole;
 import br.com.reps.mappers.UserMapper;
 import br.com.reps.repositories.UserRepository;
+import br.com.reps.services.exceptions.EntityNotFoundException;
 import br.com.reps.services.exceptions.UserAlreadyExistsException;
 import br.com.reps.services.exceptions.ValidationException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService implements UserDetailsService{
@@ -61,6 +65,17 @@ public class UserService implements UserDetailsService{
 	
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+	
+	public User alterPassword(AlterPasswordRequest request,String email) {
+		validarConfirmacaoDeSenha(request);
+		User entity = repository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+		String password = passwordEncoder.encode(request.getPassword());
+		entity.setPassword(password);
+		
+		return repository.save(entity);
+		
+		
 	}
 	
 	public Page<UserResponse> findAll(Pageable pageable,UserRole role) {
@@ -127,7 +142,7 @@ public class UserService implements UserDetailsService{
 		}
 	}
 	
-	private void validarConfirmacaoDeSenha(UserRequest obj) {
+	private void validarConfirmacaoDeSenha(IUserRequest obj) {
 		String senha = obj.getPassword();
 		String confirmacaoSenha = obj.getPasswordConfirmation();
 		
