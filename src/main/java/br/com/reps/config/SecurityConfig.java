@@ -41,7 +41,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().
         
-        	requestMatchers("/auth/cadastro").anonymous()
+        	requestMatchers("/auth/**").anonymous()
         	.requestMatchers(HttpMethod.POST,"/post/ouvidoria/**").hasAnyAuthority(UserRole.ALUNO.toString())
         	.requestMatchers(HttpMethod.POST,"/post/alterar/**").authenticated()
         	.requestMatchers(HttpMethod.POST,"/post/publi/novo").hasAnyAuthority(UserRole.GREMISTA.toString())

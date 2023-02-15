@@ -1,6 +1,10 @@
 package br.com.reps.services;
 
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 
+import br.com.reps.dtos.requests.ForgetPasswordRequest;
 import br.com.reps.dtos.requests.UserAdminRequest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
+import br.com.reps.dtos.responses.EmailParams;
 import br.com.reps.dtos.responses.UserResponse;
 import br.com.reps.entities.User;
 import br.com.reps.entities.enums.UserRole;
@@ -33,6 +39,10 @@ public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private EmailService emailService;
+	
 	
 	public User insert(UserRequest request) {
 		boolean isAdmin = request instanceof UserAdminRequest ? true : false;
@@ -58,6 +68,57 @@ public class UserService implements UserDetailsService{
 				.map(mapper::toResponse);
 	}
 	
+	public String recoveryCode(ForgetPasswordRequest request) {
+		String email = request.getEmail();
+		if(repository.findByEmail(email).isEmpty())
+			return null;
+		
+		String code = generateCode();
+		Map<String,Object> props = createProps(code);
+		EmailParams emailParams = createEmailParams(email, props);
+		
+		emailService.sendEmail(emailParams);
+		
+		
+		return code;
+		
+		
+	}
+	
+	
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return repository.findByEmail(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+	}
+	
+	private Map<String,Object> createProps(String code){
+		HashMap<String,Object> props = new HashMap<String,Object>();
+		props.put("code", code);
+		return props;
+	}
+	
+	private EmailParams createEmailParams(String email,Map<String,Object> props) {
+		EmailParams emailParams = new EmailParams();
+		System.out.println(email);
+		emailParams.setTo(email);
+		emailParams.setSubject("Código de alteração de senha");
+		emailParams.setTemplate("email/forget-password");
+		emailParams.setProps(props);
+		return emailParams;
+		
+	}
+	
+	private String generateCode() {
+		Random r = new Random();
+		String code = "";
+		for(int i = 0; i < 7;i++) {
+			code += String.valueOf(r.nextInt(9));
+		}
+		return code;
+	}
+	
 	private void validateEmail(User user) {
 		if(repository.isEmailJaCdastrado(user)) {
 			String msg = "Email já foi cadastrado";
@@ -76,12 +137,6 @@ public class UserService implements UserDetailsService{
 					obj.getPasswordConfirmation(), false, null, null, msg);
 			throw new ValidationException(fieldError,msg);
 		}
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return repository.findByEmail(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	}
 	
 		

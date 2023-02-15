@@ -34,7 +34,7 @@ public class EmailService {
 		String html = templateEngine.process(params.getTemplate(), context);
 		
 		try {
-			mimeMessageHelper.setFrom("não-responda@reps.com","Chapa R.E.P.S");
+			mimeMessageHelper.setFrom("juan2006.dev@gmail.com","Chapa R.E.P.S");
 			mimeMessageHelper.setTo(params.getTo());
 			mimeMessageHelper.setSubject(params.getSubject());
 			mimeMessageHelper.setText(html,true);
