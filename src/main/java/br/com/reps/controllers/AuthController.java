@@ -118,6 +118,7 @@ public class AuthController {
 		String email = (String) session.getAttribute("email");
 		userService.alterPassword(request,email);
 		attrs.addFlashAttribute("alert", new AlertMessage("Senha alterada com sucesso", "alert-success"));
+		
 		return "redirect:/auth/login";
 	} catch (ValidationException e) {
 		result.addError(e.getFieldError());
@@ -126,7 +127,6 @@ public class AuthController {
 		
 	}
 	
-
 	@ModelAttribute("functions")
 	public Function[] getFunctions() {
 		return Function.values();

@@ -93,7 +93,6 @@ public class UserService implements UserDetailsService{
 		
 		emailService.sendEmail(emailParams);
 		
-		
 		return code;
 		
 		
@@ -115,7 +114,6 @@ public class UserService implements UserDetailsService{
 	
 	private EmailParams createEmailParams(String email,Map<String,Object> props) {
 		EmailParams emailParams = new EmailParams();
-		System.out.println(email);
 		emailParams.setTo(email);
 		emailParams.setSubject("Código de alteração de senha");
 		emailParams.setTemplate("email/forget-password");
