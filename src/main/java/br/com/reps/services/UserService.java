@@ -30,7 +30,6 @@ import br.com.reps.repositories.UserRepository;
 import br.com.reps.services.exceptions.EntityNotFoundException;
 import br.com.reps.services.exceptions.UserAlreadyExistsException;
 import br.com.reps.services.exceptions.ValidationException;
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserService implements UserDetailsService{

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CodeRequest {
@@ -12,14 +13,6 @@ public class CodeRequest {
 	@NotEmpty
 	private String emailCode;
 
-	public String getEmailCode() {
-		return emailCode;
-	}
-
-	public void setEmailCode(String emailCode) {
-		this.emailCode = emailCode;
-	}
-	
 	
 
 }
