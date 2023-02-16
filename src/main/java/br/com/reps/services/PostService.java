@@ -8,9 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.reps.dtos.requests.AnswerRequest;
-import br.com.reps.dtos.requests.PostDTO;
 import br.com.reps.dtos.requests.PostRequest;
-import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.User;
@@ -46,10 +44,10 @@ public class PostService {
 		return repository.save(entity);
 	}
 	
-	public Post insertSupport(SupportRequest request) {
+	public Post insertSupport(PostRequest request) {
+		request.setPostType(PostType.SUPPORT);
 		Post entity = mapper.toModel(request);
 		entity.setDate(new Date());
-		entity.setPostType(PostType.SUPPORT);	
 
 		User user = securityUtils.getUsuarioLogado();
 		entity.setAuthor(user);
@@ -77,19 +75,18 @@ public class PostService {
 		repository.deleteById(id);
 	}
 	
-	public Post alter(Long id,PostDTO dto) {
+	public Post alter(Long id,PostRequest request) {
 		Post model = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"));
-		updatePost(model, dto instanceof PostRequest ? (PostRequest)dto  : dto);
-		model.setId(id);
+		updatePost(model,request);
 		return repository.save(model);
 	}
 	
-	private void updatePost(Post model, PostDTO postRequest) {
+	private void updatePost(Post model, PostRequest postRequest) {
 		model.setText(postRequest.getText());
 		model.setTitle(postRequest.getTitle());
 		
-		if(postRequest instanceof PostRequest)
-			model.setPostType(((PostRequest) postRequest).getPostType());
+		if(postRequest.getPostType() != null)
+			model.setPostType(postRequest.getPostType());
 		
 	}
 	

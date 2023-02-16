@@ -15,9 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.reps.dtos.requests.AnswerRequest;
-import br.com.reps.dtos.requests.PostDTO;
 import br.com.reps.dtos.requests.PostRequest;
-import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
@@ -113,14 +111,14 @@ public class PostController {
 	@GetMapping("/ouvidoria/novo")
 	public ModelAndView supportForm() {
 		ModelAndView mv = new ModelAndView("post/form-support");
-		mv.addObject("form", new SupportRequest());
+		mv.addObject("form", new PostRequest());
 		mv.addObject("alter", false);
 		return mv;
 
 	}
 
 	@PostMapping("/ouvidoria/novo")
-	public String supportForm(@Valid @ModelAttribute("form") SupportRequest request, BindingResult result,
+	public String supportForm(@Valid @ModelAttribute("form") PostRequest request, BindingResult result,
 			RedirectAttributes attrs) {
 		if (result.hasErrors())
 			return "post/form-support";
@@ -155,11 +153,15 @@ public class PostController {
 	}
 
 	@PostMapping("/alterar/{id}")
-	public String alterar(@PathVariable Long id, @Valid @ModelAttribute("form") PostDTO request, BindingResult result,
+	public String alterar(@PathVariable Long id, @Valid @ModelAttribute("form") PostRequest request, BindingResult result,
 			RedirectAttributes attrs,HttpServletRequest httpRequest) {
-		if (result.hasErrors())
+		PostResponse postResponse = service.findById(id);
+		if (result.hasErrors()) {
+			if(postResponse.getPostType().equals(PostType.SUPPORT)) 
+				return "post/form-support";
 			return "post/form-post";
-		Post post = service.alter(id, request instanceof PostRequest ? (PostRequest) request : request);
+		}
+		Post post = service.alter(id, request);
 		attrs.addFlashAttribute("alert", new AlertMessage("Postagem alterada com sucesso", "alert-primary"));
 
 		if (post.getPostType().equals(PostType.NOTICE))

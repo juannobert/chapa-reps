@@ -74,7 +74,7 @@ public class TutorialController {
 	}
 	
 	@PostMapping("/alterar/{id}")
-	public String alterar(@Valid @ModelAttribute("form") @PathVariable Long id, TutorialRequest request,BindingResult result,RedirectAttributes attrs) {
+	public String alterar(@PathVariable Long id,@Valid @ModelAttribute("form")  TutorialRequest request,BindingResult result,RedirectAttributes attrs) {
 		if(result.hasErrors()) {
 			return "tutorial/form-tutorial";
 		}

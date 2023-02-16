@@ -11,7 +11,7 @@
             <div class="card card-success">
                 <div class="card-header">
                     <div class="title home-title">
-                        <span th:text="${alter ? 'Alterar' : 'Publicar'}"></span> uma postagem
+                        <span th:text="${form.title != null ? 'Alterar' : 'Publicar'}"></span> uma publicação
                     </div>
                 </div>
                 <div class="card-body">
@@ -50,7 +50,7 @@
                                     </ul>
                                 </div>
                             </div> 
-                        <div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+                        <div class="col-12"><button onclick="verificar()" type="submit" class="btn btn-success">Enviar</button></div>
                         </div>
                          
                     </form>

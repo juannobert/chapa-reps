@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
-import br.com.reps.dtos.requests.SupportRequest;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 
@@ -39,11 +38,6 @@ public class PostMapper {
 		
 	}
 	
-	public Post toModel(SupportRequest request) {
-		Post post = new Post();
-		post.setTitle(request.getTitle());
-		post.setText(request.getText());
-		return post;
-	}
+
 	
 }

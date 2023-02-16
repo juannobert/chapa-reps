@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html  th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
+<html th:replace="~{adminlte3 :: layout (~{::title},~{::main},_,_ )}">>
+
 <head>
-  <th:block th:fragment="title">Apresentação</th:block>
+	<th:block th:fragment="title">Apresentação</th:block>
 </head>
+
 <body>
 	<main>
-         <div class="row">
-            <div class="col">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <div class="card-title home-title">Bem vindo(a) ao site da Gestão R.E.P.S</div>
-                    </div>
-                    <div class="card-body">
-						<p>Texto de boas vindas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-     
+		<div class="row">
+			<div class="col">
+				<div class="card card-success">
+					<div class="card-header">
+						<div class="card-title home-title">Bem vindo(a) ao site da Gestão R.E.P.S</div>
+					</div>
+					<div class="card-body">
+						<p>Olá, ifianos! Sejam bem-vindos ao site do grêmio estudantil 28 de março, liderado nos dias de
+							hoje pela gestão R.E.P.S (representação estudantil da pluralidade secundarista).
+							Bem, com relação ao site, propriamente dito, ele faz parte de uma das nossas propostas e
+							possui como objetivo uma maior comunicação com os alunos. Ele conta com:</p>
+							<p><b>- Central de avisos e transparência</b>, onde serão postadas atas das reuniões do grêmio.</p>
+							<p><b>- Ouvidoria</b>, onde vocês, alunos, poderão nos fazer perguntas ou sugestões.</p>
+							<p><b>- Aba com tutoriais</b>, que contará com vídeos interativos sobre as documentações e
+							organizações do Instituto.</p>
+
+							<p>Esperamos que vocês aproveitem e de fato gostem dessa novidade!
+							Atenciosamente,<b>Gestão R.E.P.S.</b></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
 </body>
+
 </html>
