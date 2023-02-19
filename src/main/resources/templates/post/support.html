@@ -12,6 +12,9 @@
 				<div class="card card-success">
 					<div class="card-header">
 						<div class="card-title home-title">Ouvidoria</span></div>
+						<span th:replace="~{fragments/_modal :: modal('Ouvidria','Aqui,vocês, alunos, poderão nos fazer perguntas ou sugestões.Assim que possível
+						um representante do grêmio responderá sseu questionamento.')}"></span>
+						</div>
 						<div class="card-tools">
 							<a th:href="@{/post/ouvidoria/novo}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ALUNO')" >Nova Pergunta</a>
 						</div>
