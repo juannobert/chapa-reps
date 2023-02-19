@@ -1,0 +1,1 @@
+web: java -Xmx400m $JAVA_OPTS -jar target/chapa-reps-0.0.1-SNAPSHOT.jar
