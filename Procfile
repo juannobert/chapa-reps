@@ -1,1 +1,0 @@
-web: java -Xmx400m $JAVA_OPTS -jar target/teste-0.0.1-SNAPSHOT.jar
