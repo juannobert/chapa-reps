@@ -23,7 +23,7 @@
 						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
 							th:each="post : ${posts}">
 							<div class="card-body">
-								<div class="row justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
+								<div class="row mb-3 justify-content-end" sec:authorize="hasAuthority('GREMISTA')">
 									<div>
 										<a th:href="@{/tutoriais/alterar/{id}(id=${post.id})}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
 										<a th:href="@{/tutoriais/excluir/{id}(id=${post.id})}"

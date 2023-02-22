@@ -44,7 +44,7 @@ public class AdminController {
 		try {
 		service.insert(request);
 		attrs.addFlashAttribute("alert",new AlertMessage("Gremista adicionado com sucesso","alert-primary"));		
-		return "redirect:/usuario/admin/novo";
+		return "redirect:/admin/novo";
 		}catch(ValidationException e) {
 			result.addError(e.getFieldError());
 			return "user/form-user";

@@ -47,6 +47,7 @@
                 </div>
             </div>
         </div>
+        <th:block th:replace="~{fragments/_pagination :: pagination (${users},'/admin/' + ${isUser ? 'usuarios' : 'gremistas'})}">
     </main>
 </body>
 </html>
