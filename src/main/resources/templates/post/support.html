@@ -22,7 +22,7 @@
 						<div class="card shadow-sm bg-white rounded" style="margin-top: 20px;"
 							th:each="post : ${posts}">
 								<div class="card-body">
-									<div class="row justify-content-end">
+									<div class="row mb-3 justify-content-end">
 										<div>
 											<a th:if="${userId == post.author.id}" sec:authorize="hasAuthority('ALUNO')" th:href="@{/post/alterar/{id}(id=${post.id})}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
 											<a th:if="${userId == post.author.id || isGremista == true}"  th:href="@{/post/excluir/{id}(id=${post.id})}" 
