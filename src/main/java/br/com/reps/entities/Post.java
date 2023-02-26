@@ -49,7 +49,7 @@ public class Post {
 	
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Post> answers = new ArrayList<>();
-
+	
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
 	

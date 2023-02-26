@@ -72,7 +72,11 @@ public class PostService {
 	
 	
 	public void delete(Long id) {
-		repository.deleteById(id);
+		Post model = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Postagem não encontrada"));
+		if(model.getPostType() == null) {
+			repository.deleteAnswerer(id);
+		}
+		else repository.deleteById(id);
 	}
 	
 	public Post alter(Long id,PostRequest request) {

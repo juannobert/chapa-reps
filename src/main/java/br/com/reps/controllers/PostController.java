@@ -138,7 +138,10 @@ public class PostController {
 			return "redirect:/post/avisos";
 		else if (path.endsWith("/transparencia"))
 			return "redirect:/post/transparencia";
-		return "redirect:/post/ouvidoria";
+		else if(path.endsWith("/ouvidoria"))
+			return "redirect:/post/ouvidoria";
+		path = path.replace("/excluir", "");
+		return "redirect:" + path.substring(path.indexOf('/'));
 	}
 
 	@GetMapping("/alterar/{id}")
