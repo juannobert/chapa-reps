@@ -3,9 +3,9 @@ package br.com.reps.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import br.com.reps.entities.enums.UserRole;
 
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 	
 	
@@ -24,7 +25,6 @@ public class SecurityConfig {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
 	
 	@Bean
 	 AuthenticationManager authenticationManager(HttpSecurity http) 
@@ -40,14 +40,9 @@ public class SecurityConfig {
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests().
-        
         	requestMatchers("/auth/**").anonymous()
-        	.requestMatchers(HttpMethod.POST,"/post/ouvidoria/**").hasAnyAuthority(UserRole.ALUNO.toString())
-        	.requestMatchers(HttpMethod.POST,"/post/alterar/**").authenticated()
-        	.requestMatchers(HttpMethod.POST,"/post/publi/novo").hasAnyAuthority(UserRole.GREMISTA.toString())
-        	.requestMatchers(HttpMethod.GET,"/post/**").authenticated()
-        	.anyRequest().authenticated()
-        	
+        	.requestMatchers("/admin/**").hasAnyAuthority(UserRole.GREMISTA.toString())
+        	.anyRequest().authenticated()        	
         	.and()
         	
         	.formLogin()

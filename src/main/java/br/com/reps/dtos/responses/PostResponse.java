@@ -33,4 +33,8 @@ public class PostResponse {
 	
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
+	
+	public boolean isSupport() {
+		return postType.equals(PostType.SUPPORT);
+	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.reps.dtos.requests.TutorialRequest;
 import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.TutorialResponse;
+import br.com.reps.permissions.PermissionsConfig;
 import br.com.reps.services.TutorialService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -35,6 +36,7 @@ public class TutorialController {
 		return mv;
 	}
 	
+	@PermissionsConfig.isGremista
 	@GetMapping("/novo")
 	public ModelAndView formTutorial() {
 		ModelAndView mv = new ModelAndView("tutorial/form-tutorial");
@@ -55,6 +57,7 @@ public class TutorialController {
 		return "redirect:/tutoriais";
 	}
 	
+	@PermissionsConfig.isGremista
 	@GetMapping("/excluir/{id}")
 	public String delete(@PathVariable Long id,HttpServletRequest request,RedirectAttributes attrs) {
 		service.delete(id);
@@ -62,6 +65,7 @@ public class TutorialController {
 		return "redirect:/tutoriais";
 	}
 	
+	@PermissionsConfig.isGremista
 	@GetMapping("/alterar/{id}")
 	public ModelAndView alterar(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("tutorial/form-tutorial");

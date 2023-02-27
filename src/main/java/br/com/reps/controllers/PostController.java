@@ -20,6 +20,7 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
 import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
+import br.com.reps.permissions.PermissionsConfig;
 import br.com.reps.services.PostService;
 import br.com.reps.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,6 +77,7 @@ public class PostController {
 	}
 
 	@GetMapping("/publi/novo")
+	@PermissionsConfig.isGremista
 	public ModelAndView postForm() {
 		ModelAndView mv = new ModelAndView("post/form-post");
 		mv.addObject("form", new PostRequest());
@@ -109,6 +111,7 @@ public class PostController {
 	}
 
 	@GetMapping("/ouvidoria/novo")
+	@PermissionsConfig.isUsuario
 	public ModelAndView supportForm() {
 		ModelAndView mv = new ModelAndView("post/form-support");
 		mv.addObject("form", new PostRequest());

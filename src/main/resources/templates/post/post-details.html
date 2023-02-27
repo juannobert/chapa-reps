@@ -19,7 +19,9 @@
 			                		<p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
 			                    		<i class="bi bi-person"></i>
 			                			<span th:text="${post.author.name}"></span>
-										<span th:text="${'(' + post.author.function.nome + ')'}"></span>
+										<span th:if="${post.isSupport}" th:text="${'(' + post.author.function.nome + ')'}"></span>
+										<span th:if="${post.isSupport == false}" th:text="${'(' + post.author.officie.nome + ')'}"></span>
+										
 			                			<br>
 			                			<i class="bi bi-calendar-event"></i>
 			               				<span th:text="${#dates.format(post.date, 'dd/MM/yyyy')}"></span>
