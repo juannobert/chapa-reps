@@ -18,12 +18,10 @@ import br.com.reps.dtos.requests.AnswerRequest;
 import br.com.reps.dtos.requests.PostRequest;
 import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.dtos.responses.PostResponse;
-import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.permissions.PermissionsConfig;
 import br.com.reps.services.PostService;
 import br.com.reps.utils.ControllerUtils;
-import br.com.reps.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -34,8 +32,6 @@ public class PostController {
 	@Autowired
 	private PostService service;
 	
-	@Autowired
-	private SecurityUtils securityUtils;
 	
 	@Autowired
 	private ControllerUtils controllerUtils;
@@ -56,7 +52,7 @@ public class PostController {
 			BindingResult result, RedirectAttributes attrs) {
 		service.addComents(id, request);
 		attrs.addFlashAttribute("alert", new AlertMessage("Comentario adicionado com sucesso", "alert-primary"));
-		return "redirect:/post/ouvidoria";
+		return "redirect:/ouvidoria";
 	}
 
 	/* Publicações */
@@ -114,11 +110,8 @@ public class PostController {
 	@GetMapping("/alterar/{id}")
 	public ModelAndView alterar(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("post/form-post");
-		PostResponse post =  service.findById(id);
-		mv.addObject("form", post);
+		mv.addObject("form", service.findById(id));
 		mv.addObject("alter", true);
-		if(post.getPostType().equals(PostType.SUPPORT))
-			mv.setViewName("post/form-support");
 		return mv;
 	}
 

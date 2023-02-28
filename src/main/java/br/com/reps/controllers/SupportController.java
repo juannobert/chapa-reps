@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,9 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.permissions.PermissionsConfig;
 import br.com.reps.services.PostService;
+import br.com.reps.utils.ControllerUtils;
 import br.com.reps.utils.SecurityUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,8 +33,11 @@ public class SupportController {
 	@Autowired
 	private SecurityUtils securityUtils;
 	
+	@Autowired
+	private ControllerUtils controllerUtils;
+	
 	/* Ouvidoria */
-	@GetMapping()
+	@GetMapping
 	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("post/support");
 		mv.addObject("posts", service.findAllPosts(pageable, PostType.SUPPORT));
@@ -59,6 +65,26 @@ public class SupportController {
 		attrs.addFlashAttribute("alert", new AlertMessage("Pergunta publicada com sucesso", "alert-primary"));
 		service.insertSupport(request);
 
-		return "redirect:/post/ouvidoria";
+		return "redirect:/ouvidoria";
+	}
+	
+	@GetMapping("/excluir/{id}")
+	public String deleteById(@PathVariable Long id, HttpServletRequest request, RedirectAttributes attrs) {
+		return controllerUtils.deletePost(id, request, attrs,service);
+	}
+
+
+	@GetMapping("/alterar/{id}")
+	public ModelAndView alterar(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("post/form-support");
+		mv.addObject("form", service.findById(id));
+		mv.addObject("alter", true);
+		return mv;
+	}
+
+	@PostMapping("/alterar/{id}")
+	public String alterar(@PathVariable Long id, @Valid @ModelAttribute("form") PostRequest request, BindingResult result,
+			RedirectAttributes attrs,HttpServletRequest httpRequest) {
+		return controllerUtils.alterPost(id, request, result, attrs,service);
 	}
 }

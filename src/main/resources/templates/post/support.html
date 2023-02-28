@@ -12,10 +12,10 @@
 				<div class="card card-success">
 					<div class="card-header">
 						<div class="card-title home-title">Ouvidoria</span></div>
-						<span th:replace="~{fragments/_modal :: modal('Ouvidria','Aqui,vocês, alunos, poderão nos fazer perguntas ou sugestões.Assim que possível
+						<span th:replace="~{fragments/_modal :: modal('Ouvidoria','Aqui,vocês, alunos, poderão nos fazer perguntas ou sugestões.Assim que possível
 						um representante do grêmio responderá sseu questionamento.')}"></span>
 						<div class="card-tools">
-							<a th:href="@{/post/ouvidoria/novo}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ALUNO')" >Fazer Pergunta</a>
+							<a th:href="@{/ouvidoria/novo}" class="btn btn-sm btn-primary" sec:authorize="hasAuthority('ALUNO')" >Fazer Pergunta</a>
 						</div>
 					</div>
 					<div class="card-body">
@@ -24,8 +24,8 @@
 								<div class="card-body">
 									<div class="row mb-3 justify-content-end">
 										<div>
-											<a th:if="${userId == post.author.id}" sec:authorize="hasAuthority('ALUNO')" th:href="@{/post/alterar/{id}(id=${post.id})}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-											<a th:if="${userId == post.author.id || isGremista == true}"  th:href="@{/post/excluir/{id}(id=${post.id})}" 
+											<a th:if="${userId == post.author.id}" sec:authorize="hasAuthority('ALUNO')" th:href="@{/ouvidoria/alterar/{id}(id=${post.id})}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+											<a th:if="${userId == post.author.id || isGremista == true}"  th:href="@{/ouvidoria/excluir/{id}(id=${post.id})}" 
 												class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
 										</div>
 									</div>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div th:if="${posts.totalPages > 0}">
-			<th:block th:replace="~{fragments/_pagination :: pagination (${posts},'/post/ouvidoria')}">
+			<th:block th:replace="~{fragments/_pagination :: pagination (${posts},'/ouvidoria')}">
 			</th:block>
 		</div>
 	</main>

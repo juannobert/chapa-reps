@@ -29,7 +29,7 @@ public class ControllerUtils {
 			return "redirect:/post/avisos";
 		else if (post.getPostType().equals(PostType.TRANSPARENCY))
 			return "redirect:/post/transparencia";
-		return "redirect:/post/ouvidoria";
+		return "redirect:/ouvidoria";
 	}
 	
 	public String deletePost(Long id, HttpServletRequest request, RedirectAttributes attrs,PostService service) {
@@ -42,7 +42,7 @@ public class ControllerUtils {
 		else if (path.endsWith("/transparencia"))
 			return "redirect:/post/transparencia";
 		else if(path.endsWith("/ouvidoria"))
-			return "redirect:/post/ouvidoria";
+			return "redirect:/ouvidoria";
 		path = path.replace("/excluir", "");
 		return "redirect:" + path.substring(path.indexOf('/'));
 	}
