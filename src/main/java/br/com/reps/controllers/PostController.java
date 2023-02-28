@@ -22,6 +22,7 @@ import br.com.reps.entities.Post;
 import br.com.reps.entities.enums.PostType;
 import br.com.reps.permissions.PermissionsConfig;
 import br.com.reps.services.PostService;
+import br.com.reps.utils.ControllerUtils;
 import br.com.reps.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -35,6 +36,9 @@ public class PostController {
 	
 	@Autowired
 	private SecurityUtils securityUtils;
+	
+	@Autowired
+	private ControllerUtils controllerUtils;
 
 	@GetMapping("/{id}")
 	public ModelAndView findPostById(@PathVariable Long id) {
@@ -99,53 +103,13 @@ public class PostController {
 		return "redirect:/post/transparencia";
 	}
 
-	/* Ouvidoria */
-	@GetMapping("/ouvidoria")
-	public ModelAndView supportPosts(@PageableDefault(size = 5) Pageable pageable) {
-		ModelAndView mv = new ModelAndView("post/support");
-		mv.addObject("posts", service.findAllPosts(pageable, PostType.SUPPORT));
-		Long userId = securityUtils.getUsuarioLogado().getId();
-		mv.addObject("userId", userId);
-		mv.addObject("isGremista", securityUtils.isGremista());
-		return mv;
-	}
-
-	@GetMapping("/ouvidoria/novo")
-	@PermissionsConfig.isUsuario
-	public ModelAndView supportForm() {
-		ModelAndView mv = new ModelAndView("post/form-support");
-		mv.addObject("form", new PostRequest());
-		mv.addObject("alter", false);
-		return mv;
-
-	}
-
-	@PostMapping("/ouvidoria/novo")
-	public String supportForm(@Valid @ModelAttribute("form") PostRequest request, BindingResult result,
-			RedirectAttributes attrs) {
-		if (result.hasErrors())
-			return "post/form-support";
-		attrs.addFlashAttribute("alert", new AlertMessage("Pergunta publicada com sucesso", "alert-primary"));
-		service.insertSupport(request);
-
-		return "redirect:/post/ouvidoria";
-	}
+	
 
 	@GetMapping("/excluir/{id}")
 	public String deleteById(@PathVariable Long id, HttpServletRequest request, RedirectAttributes attrs) {
-		service.delete(id);
-		attrs.addFlashAttribute("alert", new AlertMessage("Publicação excluida com sucesso", "alert-primary"));
-		String path = request.getHeader("Referer");
-
-		if (path.endsWith("/avisos"))
-			return "redirect:/post/avisos";
-		else if (path.endsWith("/transparencia"))
-			return "redirect:/post/transparencia";
-		else if(path.endsWith("/ouvidoria"))
-			return "redirect:/post/ouvidoria";
-		path = path.replace("/excluir", "");
-		return "redirect:" + path.substring(path.indexOf('/'));
+		return controllerUtils.deletePost(id, request, attrs,service);
 	}
+
 
 	@GetMapping("/alterar/{id}")
 	public ModelAndView alterar(@PathVariable Long id) {
@@ -161,20 +125,7 @@ public class PostController {
 	@PostMapping("/alterar/{id}")
 	public String alterar(@PathVariable Long id, @Valid @ModelAttribute("form") PostRequest request, BindingResult result,
 			RedirectAttributes attrs,HttpServletRequest httpRequest) {
-		PostResponse postResponse = service.findById(id);
-		if (result.hasErrors()) {
-			if(postResponse.getPostType().equals(PostType.SUPPORT)) 
-				return "post/form-support";
-			return "post/form-post";
-		}
-		Post post = service.alter(id, request);
-		attrs.addFlashAttribute("alert", new AlertMessage("Postagem alterada com sucesso", "alert-primary"));
-
-		if (post.getPostType().equals(PostType.NOTICE))
-			return "redirect:/post/avisos";
-		else if (post.getPostType().equals(PostType.TRANSPARENCY))
-			return "redirect:/post/transparencia";
-		return "redirect:/post/ouvidoria";
+		return controllerUtils.alterPost(id, request, result, attrs,service);
 	}
 
 	@ModelAttribute("postTypes")
