@@ -109,6 +109,12 @@ public class PostService {
 				.isSupport();
 	}
 	
+	public boolean verifyPost(Long postId) {
+		PostResponse response = findById(postId);
+		return securityUtils.getUsuarioLogado().getId() == response.getAuthor().getId();
+		
+	}
+	
 	
 
 	

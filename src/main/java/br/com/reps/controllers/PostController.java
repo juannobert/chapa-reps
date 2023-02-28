@@ -102,6 +102,7 @@ public class PostController {
 	
 
 	@GetMapping("/excluir/{id}")
+	@PermissionsConfig.isGremista
 	public String deleteById(@PathVariable Long id, HttpServletRequest request, RedirectAttributes attrs) {
 		return controllerUtils.deletePost(id, request, attrs,service);
 	}
