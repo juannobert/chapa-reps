@@ -3,6 +3,7 @@ package br.com.reps.mappers;
 import org.springframework.stereotype.Component;
 
 import br.com.reps.dtos.requests.UserAdminRequest;
+import br.com.reps.dtos.requests.UserAlterResquest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
 import br.com.reps.dtos.responses.UserResponse;
@@ -33,6 +34,15 @@ public class UserMapper {
 		User user = comonsUser(request);
 		user.setFunction(request.getFunction());
 		return user;
+	}
+	
+	public User alterUser(UserAlterResquest request,User user) {
+		user.setEmail(request.getEmail());
+		user.setName(request.getName());
+		if(request.getOfficie() != null) user.setOfficie(request.getOfficie());
+		else user.setFunction(request.getFunction());
+		return user;
+		
 	}
 
 	

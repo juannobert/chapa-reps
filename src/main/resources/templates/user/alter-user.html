@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html th:replace="~{adminlte3 :: layout (~{::title}, ~{::main},_,_)}">
+<head>
+ 
+    <th:block th:fragment="title">Cadastrar Gremista</th:block>
+</head>
+<body>
+    <main>
+        <div class="row">
+           <div class="col">
+            <div class="card card-success">
+                <div class="card-header">
+                    <div class="title home-title">
+                        Alterar usuário
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                
+                    <form method="POST" th:object="${form}">
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Nome:</label>
+                                    <input class="form-control" type="text" th:field="*{name}">
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('name')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" type="text"  th:field="*{email}"/>
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('email')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <div class="col-12" th:if="${form.officie != null}">
+                                <div class="form-group">
+                                    <label for="icone">Cargo:</label>
+                                    <select class="form-control" th:field="*{officie}">
+                                    <option th:each="officie : ${positions}" th:text="${officie.nome}" th:value="${officie}"></option>
+                                    </select> 
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('officie')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <div class="col-12" th:if="${form.function != null}">
+                                <div class="form-group">
+                                    <label for="icone">Função:</label>
+                                    <select class="form-control" th:field="*{function}">
+                                    <option th:each="function : ${functions}" th:text="${function.nome}" th:value="${function}"></option>
+                                    </select> 
+                                    <ul>
+                                    	<li class="text-danger" th:each="erro : ${#fields.errors('function')}" th:text="${erro}"></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        <div class="col-12"><button type="submit" class="btn btn-success">Enviar</button></div>
+                        </div>
+                         
+                    </form>
+                    
+                </div>
+              </div>
+           </div> 
+        </div>
+    </main>
+    
+    
+    
+</body>
+</html>

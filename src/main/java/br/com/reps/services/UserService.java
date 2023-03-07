@@ -8,6 +8,10 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +22,7 @@ import org.springframework.validation.FieldError;
 import br.com.reps.dtos.requests.ForgetPasswordRequest;
 import br.com.reps.dtos.requests.IUserRequest;
 import br.com.reps.dtos.requests.UserAdminRequest;
+import br.com.reps.dtos.requests.UserAlterResquest;
 import br.com.reps.dtos.requests.UserDefaultRequest;
 import br.com.reps.dtos.requests.UserRequest;
 import br.com.reps.dtos.responses.AlterPasswordRequest;
@@ -30,9 +35,10 @@ import br.com.reps.repositories.UserRepository;
 import br.com.reps.services.exceptions.EntityNotFoundException;
 import br.com.reps.services.exceptions.UserAlreadyExistsException;
 import br.com.reps.services.exceptions.ValidationException;
+import br.com.reps.utils.SecurityUtils;
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService{
 
 	@Autowired
 	private UserRepository repository;
@@ -45,6 +51,9 @@ public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private SecurityUtils securityUtils;
 	
 	
 	public User insert(UserRequest request) {
@@ -66,6 +75,7 @@ public class UserService implements UserDetailsService{
 		repository.deleteById(id);
 	}
 	
+	
 	public User alterPassword(AlterPasswordRequest request,String email) {
 		validarConfirmacaoDeSenha(request);
 		User entity = repository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -82,6 +92,20 @@ public class UserService implements UserDetailsService{
 				.map(mapper::toResponse);
 	}
 	
+	public User alterUser(UserAlterResquest request) {
+		User entity = mapper.alterUser(request, securityUtils.getUsuarioLogado());
+		repository.save(entity);
+		securityUtils.updateAuthenticatedUser(entity);
+		return entity;
+	}
+	
+	
+	public UserResponse getAuthenticatedUser() {
+		return mapper.toResponse(securityUtils.getUsuarioLogado());
+				
+	}
+	
+	
 	public String recoveryCode(ForgetPasswordRequest request) {
 		String email = request.getEmail();
 		if(repository.findByEmail(email).isEmpty())
@@ -95,16 +119,10 @@ public class UserService implements UserDetailsService{
 		
 		return code;
 		
-		
 	}
 	
 	
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return repository.findByEmail(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-	}
 	
 	private Map<String,Object> createProps(String code){
 		HashMap<String,Object> props = new HashMap<String,Object>();
@@ -150,6 +168,8 @@ public class UserService implements UserDetailsService{
 			throw new ValidationException(fieldError,msg);
 		}
 	}
+	
+	
 	
 		
 }
