@@ -15,7 +15,7 @@
 						<span th:replace="~{fragments/_modal :: modal('Ala dos tutoriais','Aqui você pode encontrar vídeos interativos sobre as documentações e
 							organizações do Instituto.')}"></span>
 						<div class="card-tools">
-							<a th:href="@{/tutoriais/novo}" class="btn btn-sm btn-primary"
+							<a th:href="@{/tutoriais/novo}" class="btn btn-new btn-sm btn-primary"
 								sec:authorize="hasAuthority('GREMISTA')">Novo tutorial</a>
 						</div>
 					</div>

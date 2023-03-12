@@ -12,12 +12,11 @@
 				<div class="card card-success">
 					<div class="card-header">
 						<div class="card-title home-title">Central de <span th:text="${pageTitle}"></span>
-						<span th:replace="~{fragments/_modal :: modal('Central de ' + ${pageTitle},'Aqui vocês, alunos, poderão nos fazer perguntas ou sugestões.Assim que possível
-						um representante do grêmio estará respondendo seu questionamento')}"></span>
+						<span th:replace="~{fragments/_modal :: modal('Central de ' + ${pageTitle},'Aqui serão postadas atas das reuniões do grêmio.')}"></span>
 						</div>
 						
 						<div class="card-tools">
-							<a th:href="@{/post/publi/novo}" class="btn btn-sm btn-primary"
+							<a th:href="@{/post/publi/novo}" class="btn btn-new btn-sm btn-primary"
 								sec:authorize="hasAuthority('GREMISTA')">Nova publicação</a>
 						</div>
 					</div>

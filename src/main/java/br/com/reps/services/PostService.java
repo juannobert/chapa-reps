@@ -17,6 +17,7 @@ import br.com.reps.mappers.PostMapper;
 import br.com.reps.repositories.PostRepository;
 import br.com.reps.services.exceptions.EntityNotFoundException;
 import br.com.reps.utils.SecurityUtils;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PostService {
@@ -30,6 +31,7 @@ public class PostService {
 	@Autowired
 	private SecurityUtils securityUtils;
 	
+	@Transactional
 	public Page<PostResponse> findAllPosts(Pageable pageable,PostType postType){
 		return repository.findAll(pageable,postType)
 				.map(mapper::toResponse);
@@ -44,6 +46,7 @@ public class PostService {
 		return repository.save(entity);
 	}
 	
+	@Transactional
 	public Post insertSupport(PostRequest request) {
 		request.setPostType(PostType.SUPPORT);
 		Post entity = mapper.toModel(request);
@@ -95,6 +98,7 @@ public class PostService {
 	}
 	
 
+	@Transactional
 	public PostResponse findById(Long id) {
 		return repository.findById(id)
 				.stream()
