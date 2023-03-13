@@ -15,6 +15,7 @@ import br.com.reps.dtos.responses.AlertMessage;
 import br.com.reps.entities.enums.Function;
 import br.com.reps.entities.enums.Officie;
 import br.com.reps.services.UserService;
+import br.com.reps.services.exceptions.ValidationException;
 import jakarta.validation.Valid;
 
 @Controller
@@ -23,35 +24,39 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-	
+
 	@GetMapping("/alterar")
 	public ModelAndView alter() {
 		ModelAndView mv = new ModelAndView("user/alter-user");
 		mv.addObject("form", service.getAuthenticatedUser());
-		
-		
+
 		return mv;
 	}
-	
+
 	@PostMapping("/alterar")
-	public String alter(@Valid @ModelAttribute("form") UserAlterResquest request,BindingResult result,RedirectAttributes attrs) {
-		if(result.hasErrors())
+	public String alter(@Valid @ModelAttribute("form") UserAlterResquest request, BindingResult result,
+			RedirectAttributes attrs) {
+		try {
+			if (result.hasErrors())
+				return "user/alter-user";
+			service.alterUser(request);
+			attrs.addFlashAttribute("alert", new AlertMessage("Usuário alterado com sucesso", "alert-primary"));
+			return "redirect:/home";
+		} catch (ValidationException e) {
+			result.addError(e.getFieldError());
 			return "user/alter-user";
-		service.alterUser(request);
-		attrs.addFlashAttribute("alert",new AlertMessage("Usuário alterado com sucesso","alert-primary"));
-		return "redirect:/home";
-		
+		}
+
 	}
-	
-	
+
 	@ModelAttribute("positions")
 	public Officie[] getOfficie() {
 		return Officie.values();
 	}
+
 	@ModelAttribute("functions")
 	public Function[] getFunctions() {
 		return Function.values();
 	}
-	
-	
+
 }
